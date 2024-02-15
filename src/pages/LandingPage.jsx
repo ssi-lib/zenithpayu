@@ -1,5 +1,12 @@
+import DashboardMain from "./account/DashboardMain";
+
 function LandingPage() {
-  return <div>LandingPage</div>;
+  return (
+    <>
+      <DashboardMain />
+      <div>LandingPage</div>
+    </>
+  );
 }
 
 export default LandingPage;
