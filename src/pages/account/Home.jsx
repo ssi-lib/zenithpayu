@@ -1,4 +1,8 @@
+import {useContext } from "react";
+import { LinksContext } from "./DashboardMain";
+
 function Home() {
+  const links = useContext(LinksContext)
   return (
     <div className='home_render '>
           <div className='py-6 px-4 bg-gray-300 rounded-md flex flex-col gap-6'>
@@ -6,6 +10,7 @@ function Home() {
               <div className="acc_balance flex-1">
                 <p>EUR Balance</p>
                 <p>E <span>0.00</span></p>
+                
               </div>
               <div className="acc_status flex-1">
                 <p>Account Status</p>

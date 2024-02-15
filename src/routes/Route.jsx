@@ -20,7 +20,9 @@ const AllRoute = () => {
         <Route path="/account/deposit" element={<DashboardMain page={'deposit'}/>} />
         <Route path="/account/withdraw" element={<DashboardMain page={'withdraw'}/>} />
         <Route path="/account/swap" element={<DashboardMain page={'swap'}/>} />
-        
+        <Route path="/account/cards" element={<DashboardMain page={'cards'}/>} />
+        <Route path="/account/transfer" element={<DashboardMain page={'transfer'}/>} />
+
       </Routes>
     </BrowserRouter>
   );
