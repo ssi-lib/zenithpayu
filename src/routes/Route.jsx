@@ -22,6 +22,8 @@ const AllRoute = () => {
         <Route path="/account/swap" element={<DashboardMain page={'swap'}/>} />
         <Route path="/account/cards" element={<DashboardMain page={'cards'}/>} />
         <Route path="/account/transfer" element={<DashboardMain page={'transfer'}/>} />
+        <Route path="/account/transfer" element={<DashboardMain page={'transfer'}/>} />
+        <Route path="/account/settings" element={<DashboardMain page={'settings'}/>} />
 
       </Routes>
     </BrowserRouter>

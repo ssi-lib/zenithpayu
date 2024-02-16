@@ -1,19 +1,23 @@
-import React from 'react'
+import React,{useContext} from 'react'
+import { LinksContext } from '../DashboardMain';
+
 
 function AsideLeft() {
+  const links = useContext(LinksContext)
   const quickAccessContent = [
     { textContent: 'Deposit', icon: '', link: '' },
     { textContent: 'Withdraw', icon: '', link: '' },
     { textContent: 'Exchange', icon: '', link: '' },
     { textContent: 'Cards', icon: '', link: '' },
   ];
+
   const primaryNavContent = [
-    { textContent: 'Dashboard', icon: '', link: '' },
-    { textContent: 'Swap', icon: '', link: '' },
-    { textContent: 'Loans', icon: '', link: '' },
-    { textContent: 'My Cards', icon: '', link: '' },
-    { textContent: 'Settings', icon: '', link: '' },
-    { textContent: 'Logout', icon: '', link: '' },
+    { textContent: 'Dashboard', icon: '', link: links.home },
+    { textContent: 'Swap', icon: '', link: links.swap },
+    { textContent: 'Loans', icon: '', link: links.loans },
+    { textContent: 'My Cards', icon: '', link: links.card },
+    { textContent: 'Settings', icon: '', link: '#' },
+    { textContent: 'Logout', icon: '', link: '#' },
   ]
 
   return (
@@ -45,7 +49,7 @@ function AsideLeft() {
               {
                 primaryNavContent.map((n, i) => (
                   <li key={i} className='border-b text-pri uppercase'>
-                    <a href='#' className='inline-block py-3'>
+                    <a href={n.link} className='inline-block py-3'>
                       <i className='inline-block mr-4'>icon</i>
                       {n.textContent}
                     </a>

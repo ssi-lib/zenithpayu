@@ -1,12 +1,16 @@
 import { useState, createContext } from "react";
-import Deposit from "./Deposit";
-import Home from "./Home";
 import AsideLeft from "./components/AsideLeft";
 import AsideRight from "./components/AsideRight";
 import Header from "./components/Header";
+
+import Deposit from "./Deposit";
+import Home from "./Home";
 import Transfer from "./Transfer";
 import Cards from "./Cards";
 import { linkObj } from "./links";
+import Swap from "./Swap";
+import Loan from "./Loan";
+import Settings from "./Settings";
 
 export const LinksContext = createContext()
 
@@ -17,6 +21,9 @@ function DashboardMain({page}) {
     deposit: {component:<Deposit />, header:<Header type='deposit'/>},
     transfer: {component:<Transfer />, header:<Header type='transfer'/>},
     cards: {component:<Cards />, header:<Header type='cards'/>},   
+    swap: {component:<Swap />, header:<Header type='swap'/>},   
+    loan: {component:<Loan />, header:<Header type='loan'/>},   
+    settings: {component:<Settings />, header:<Header type='settings'/>},   
   }
   return (
     <LinksContext.Provider value={linkObj}>
@@ -26,7 +33,7 @@ function DashboardMain({page}) {
         {renderItem[page].component}
         <AsideRight />
       </main>
-      <div>Dashboard Main</div>
+      <div><i className='bi bi-credit-card text-blue-300'></i>Dashboard Main</div>
     </LinksContext.Provider>
   )
 }
