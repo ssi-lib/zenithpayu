@@ -1,4 +1,5 @@
 import Button from "./components/ui/Button"
+import Switch from "./components/ui/Switch"
 
 function Settings() {
   const userInfo = [
@@ -59,7 +60,7 @@ function Settings() {
           <h3>Update Password</h3>
           <div className="flex justify-between items-center">
             <span className='whitespace-nowrap'>2 Step Verification</span>
-            <Button textContent={'switch'} />
+            <Switch />
           </div>
         </div>
       </div>
