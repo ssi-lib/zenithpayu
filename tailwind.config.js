@@ -21,6 +21,7 @@ export default {
       },
       colors: {
         pri: '#0581ce',
+        neutral: 'gray'
       },
     },
   },
