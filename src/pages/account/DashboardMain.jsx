@@ -22,7 +22,7 @@ function DashboardMain({page}) {
     transfer: {component:<Transfer />, header:<Header type='transfer'/>},
     cards: {component:<Cards />, header:<Header type='cards'/>},   
     swap: {component:<Swap />, header:<Header type='Exchange Currency'/>},   
-    loan: {component:<Loan />, header:<Header type='loan'/>},   
+    loans: {component:<Loan />, header:<Header type='loans'/>},   
     settings: {component:<Settings />, header:<Header type='settings'/>},   
   }
   return (

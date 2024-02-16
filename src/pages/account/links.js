@@ -5,5 +5,6 @@ export const linkObj = {
     cards:'/account/cards',
     transfer:'/account/transfer',
     messages:'/account/messages',
-    settings:'/account/settings'
+    settings:'/account/settings',
+    loans:'/account/loans'
 }
