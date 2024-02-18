@@ -1,25 +1,13 @@
-import { useEffect, useState } from 'react';
 import './App.css';
-import Loader from './components/Loader';
 import AllRoute from './routes/Route';
+import RouteChangeListener from './routes/RouteChangeListener';
 
 function App() {
-  const [loader, setLoader] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoader(false);
-    }, 1000);
-  }, []);
-
-  if (loader) {
-    return <Loader />;
-  }
-
   return (
-    <>
+    <div className="">
+      <RouteChangeListener />
       <AllRoute />
-    </>
+    </div>
   );
 }
 
