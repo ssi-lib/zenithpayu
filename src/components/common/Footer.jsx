@@ -21,7 +21,7 @@ const Footer = () => {
               <a href=''><p className='text-sm mb-4'>Pay bill</p></a>
             </div>
           </div>
-          <div className='w-[90%] mx-auto pt-4 border-t-[1px] md:border-0'>
+          <div className='md:w-[65%] w-[90%] mx-auto pt-4 md:pt-0 border-t-[1px] md:border-0'>
             <h3 className='pb-4 text-lightgray'>LEGAL</h3>
             <p className='text-sm'>SwiftPayu is authorised by the Financial Conduct Authority under the Electronic Money Regulations 2011, for the issuing of electronic money.</p>
           </div>

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import MobileNavbar from './MobileNavBar';
+import { BlueButton } from './Button';
 
 export const navLinks = [ 
   {
@@ -74,13 +75,11 @@ const Nav = () => {
             <span className={`line w-5 h-0.5 bg-white mb-1 rounded-full ${openNav ? '-rotate-45 -translate-y-1.5 duration-300' : ''}`}></span>
           </button>
         )}
-        <div className='text-sm md:gap-0'>
+        <div className='text-sm md:gap-0 flex'>
           <button 
           type='button' 
           className='text-center text-gray-100 md:px-10 py-3 hover:text-white btn-gradient text-white mx-4'>LOGIN</button>
-          <button 
-          type='button' 
-          className='text-center rounded-md bg-pri md:px-10 p-3 hover:bg-blue-500 btn-gradient text-white'>SIGN UP</button>
+          <BlueButton content="SIGN UP" />
         </div>
       </nav>
       {openNav && <MobileNavbar setOpenNav={setOpenNav} className={`${openNav ? 'translate-y-6 duration-600' : ''}`} />}

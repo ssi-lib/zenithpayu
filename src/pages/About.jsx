@@ -2,6 +2,7 @@ import Footer from "../components/common/Footer";
 import Nav from "../components/common/Nav";
 import customerSupport from '../assets/customer-support.jpeg';
 import { FaEnvelope, FaGlobe, FaDollarSign, FaUsers, FaLifeRing } from "react-icons/fa";
+import { GlassButton, BlueButton } from "../components/common/Button";
 
 function About() {
   return (
@@ -17,14 +18,9 @@ function About() {
               <h1 className='md:text-[2.75rem] text-[2rem] mb-8 font-medium'>About SwiftPayu</h1>
               <p className="text-xl">Our core mission is to provide you with a cost-effective and efficient financial solution by offering competitive exchange rates and reducing transfer fees. Our team is dedicated to empowering you with the tools and resources necessary to achieve your financial goals. We believe in creating a seamless and secure platform for our clients to send and receive money, while prioritizing transparency and integrity in all our transactions.</p>
             </div>
-            <div className="flex justify-center gap-4">
-              <div className='p-4 md:w-[12%] bg-[#0581ce] text-center text-white my-8 rounded-md'>
-                <button>Open a free account</button>
-              </div>
-              <div className='p-4 md:w-[12%] border-2 text-white my-8 rounded-md inline-flex items-center justify-center gap-2'>
-                <FaEnvelope className="text-white"/>
-                <button>Contact us</button>
-              </div>
+            <div className="flex justify-center gap-4 items-center">
+              <BlueButton content="Open a free account"/>
+              <GlassButton text='Contact us' icon={<FaEnvelope className="text-white"/>}/>
             </div>
           </div>
         </div>

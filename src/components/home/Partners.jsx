@@ -7,8 +7,11 @@ import Partner3 from '../../assets/partner-3.png';
 import Partner4 from '../../assets/partner-4.png';
 import Partner5 from '../../assets/partner-5.png';
 import Slider from 'react-slick';
+import useThemeDetector from '../../hooks/useThemeDetector';
 
 const Partners = () => {
+  const isDarkTheme = useThemeDetector();
+
   const settings = {
     speed: 500,
     slidesToShow: 6,
@@ -26,23 +29,23 @@ const Partners = () => {
     ]
   };
   return (
-    <section>
+    <section className={isDarkTheme ? 'dark' : 'light-mode'}>
       <h1 className='text-center text-[2.25rem] my-10'>PARTNERS</h1>
       <Slider {...settings} className='border-b-[1px] pb-10 mx-auto'>
         <div>
-          <img src={Partner1} alt='' className='grayscale w-auto'/>
+          <img src={Partner1} alt='' className='grayscale dark:grayscale-0 w-auto'/>
         </div>
         <div>
-          <img src={Partner2} alt='' className='grayscale'/>
+          <img src={Partner2} alt='' className='grayscale dark:grayscale-0'/>
         </div>
         <div>
-          <img src={Partner3} alt='' className='grayscale'/>
+          <img src={Partner3} alt='' className='grayscale dark:grayscale-0'/>
         </div>
         <div>
-          <img src={Partner4} alt='' className='grayscale'/>
+          <img src={Partner4} alt='' className='grayscale dark:grayscale-0'/>
         </div>
         <div>
-          <img src={Partner5} alt='' className='grayscale'/>
+          <img src={Partner5} alt='' className='grayscale dark:grayscale-0'/>
         </div>
       </Slider>
     </section>

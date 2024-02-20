@@ -1,4 +1,5 @@
 import React from 'react'
+import { BlueButton } from '../common/Button'
 
 const Simple = () => {
   return (
@@ -30,8 +31,8 @@ const Simple = () => {
             <p className='font-light'>Your funds will be transferred to either your local or foreign bank account(s).</p>
           </div>
       </div>
-      <div className='p-4 md:w-[20%] w-[70%] mx-auto bg-pri text-center text-white my-8 mt-20 rounded-md'>
-          <button>Open a free account</button>
+      <div className='flex justify-center mt-12'>
+        <BlueButton content="Open a free account"/>
       </div>
     </section>
   )

@@ -8,6 +8,8 @@ import Features from '../components/home/Features';
 import Testimonials from '../components/home/Testimonials';
 import CustomerSupport from '../components/home/CustomerSupport';
 import TransferForm from '../components/home/TransferForm';
+import { GlassButton } from '../components/common/Button';
+import { FaPlay, FaUser } from 'react-icons/fa';
 
 function LandingPage() {
   return (
@@ -19,9 +21,12 @@ function LandingPage() {
           </div>
           <div className="absolute md:top-1/4 mt-28 md:mt-0 md:px-[9%] px-[2%] md:flex items-center gap-[1rem] z-10">
             <div>
-              <h1 className='md:text-6xl text-3xl'>Pay Anyone,<br></br> Anywhere</h1>
-              <p className='text-[#dee3e4] mb-4 mx-1'>Quickly and easily send, receive and request money online with SwiftPayu. Get a customised solution to fit your business needs.</p>
-              <button></button>
+              <h1 className='md:text-6xl text-3xl mb-8'>Pay Anyone,<br></br> Anywhere</h1>
+              <p className='text-[#dee3e4] mb-4 mx-1 font-light text-[1.25rem]'>Quickly and easily send, receive and request money online with SwiftPayu. Get a customised solution to fit your business needs.</p>
+              <div className='flex gap-4'>
+                <GlassButton text="Open an account" icon={<FaPlay/>} />
+                <GlassButton text="Login" icon={<FaUser/>}/>
+              </div>
             </div>
             <div className='md:w-[50%]'>
               <TransferForm />
