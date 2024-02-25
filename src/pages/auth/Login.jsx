@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Checking from '../../components/Checking';
 import AltButton from './components/AltButton';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../firebase';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,6 +16,7 @@ function Login() {
     password: '',
   });
   const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
@@ -22,16 +25,36 @@ function Login() {
     setLoginDetails((prev) => ({ ...prev, [target.name]: target.value }));
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setLoader(true);
+
+    const { email, password } = loginDetails;
     if (!loginDetails.email || !loginDetails.password) {
       setError(true);
       setTimeout(() => setLoader(false), 2000);
       return;
     }
-    navigate('/dashboard');
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        setLoader(false);
+        setIsLoading(false);
+        navigate('/dashboard');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setErrorMsg(errorMessage.split('(')[1].split(')')[0].trim());
+        setIsLoading(false);
+        setLoader(false);
+      })
+      .finally(() => {
+        setTimeout(() => setErrorMsg(null), 3000);
+      });
   };
 
   return (
@@ -53,7 +76,11 @@ function Login() {
             </Link>
           </p>
           <form action="" className="pt-12 space-y-6" onSubmit={handleLogin}>
-            <div className="flex items-center px-4 rounded-md bg-white shadow w-full">
+            <div
+              className={`${
+                errorMsg ? 'border border-red-500' : ''
+              } flex items-center px-4 rounded-md bg-white shadow w-full`}
+            >
               <MdPersonAddAlt1 className="text-gray-500 text-lg" />
               <input
                 type="text"
@@ -64,7 +91,11 @@ function Login() {
                 className="w-full py-3 px-4 placeholder:font-thin placeholder:text-gray-500 outline-none focus:border-b focus:border-b-[3px] focus:border-pri transition-all duration-300 ease-in-out"
               />
             </div>
-            <div className="flex items-center px-4 rounded-md bg-white shadow w-full">
+            <div
+              className={`${
+                errorMsg ? 'border border-red-500' : ''
+              } flex items-center px-4 rounded-md bg-white shadow w-full`}
+            >
               <BsKeyFill className="text-gray-500 text-lg" />
               <div className="flex justify-between items-center w-full">
                 <input
@@ -83,6 +114,9 @@ function Login() {
                 </div>
               </div>
             </div>
+            {errorMsg && (
+              <p className="my-2 text-red-500 text-[11px]">{errorMsg}</p>
+            )}
             <Link to={'/forgot-password'}>
               <p className="text-end font-thin text-sm text-gray-500 mt-5">
                 Forgot Password?

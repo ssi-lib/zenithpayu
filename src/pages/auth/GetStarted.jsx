@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { TfiAngleLeft } from 'react-icons/tfi';
 import {
@@ -18,11 +19,14 @@ import {
   MdLockOutline,
   MdVerifiedUser,
 } from 'react-icons/md';
-// import { IoEyeOffSharp, IoEyeSharp } from 'react-icons/io5';
-// import { BsKeyFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import AltButton from './components/AltButton';
 import img from '../../assets/py.jpeg';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { auth, db } from '../../../firebase';
+import { collection, addDoc } from 'firebase/firestore';
+import Checking from '../../components/Checking';
+import { useNavigate } from 'react-router-dom';
 
 function GetStarted() {
   const [set, setSet] = useState(0);
@@ -48,28 +52,70 @@ function GetStarted() {
     state: '',
     app_suit_unit: '',
     city: '',
+    avatar: '',
+    avatarPreview: '',
   });
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const navigate = useNavigate();
 
   const useSignUpDetails = ({ target }) => {
     setSignUpInfo((prev) => ({ ...prev, [target.name]: target.value }));
   };
 
-  const handleNext = (e) => {
+  const handleNext = async (e) => {
     e.preventDefault();
+    const {
+      password,
+      c_password,
+      account_pin,
+      v_account_pin,
+      email,
+      avatar,
+      avatarPreview,
+      phone_number,
+      ...saveInfo
+    } = signUpInfo;
 
     if (set !== 5) {
       setSet((prev) => prev + 1);
-    } else {
-      if (signUpInfo.password !== signUpInfo.c_password) {
-        setPassError(true);
+      return;
+    }
 
-        return;
-      }
-      if (signUpInfo.account_pin !== signUpInfo.v_account_pin) {
-        setPinError(true);
-        return;
-      }
-      console.log(signUpInfo);
+    if (password !== c_password) {
+      setPassError(true);
+      return;
+    }
+
+    if (account_pin !== v_account_pin) {
+      setPinError(true);
+      return;
+    }
+    try {
+      setIsLoading(true);
+      setLoader(true);
+      console.log(password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      updateProfile(auth.currentUser, {
+        displayName: `${signUpInfo.first_name} ${signUpInfo.last_name}`,
+        phoneNumber: signUpInfo.phone_number,
+      });
+      await addDoc(collection(db, 'users'), saveInfo);
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Error signing up:', error);
+      setErrorMsg(error.message?.split(')')[0].trim());
+    } finally {
+      setIsLoading(false);
+      setLoader(false);
+      setErrorMsg(null);
     }
   };
 
@@ -90,6 +136,7 @@ function GetStarted() {
             handleSubmit={handleNext}
             useSignUpDetails={useSignUpDetails}
             signUpInfo={signUpInfo}
+            setSignUpInfo={setSignUpInfo}
           />
         );
         break;
@@ -152,8 +199,17 @@ function GetStarted() {
             <div className="w-full h-[1px] bg-gray-300 absolute"></div>
           </div>
         ) : null}
+        {errorMsg && (
+          <p className="my-2 text-red-500 text-[11px]">{errorMsg}</p>
+        )}
         <div className="text-center flex flex-col space-y-3 py-5">{render}</div>
       </div>
+      <Checking
+        isLoading={isLoading}
+        error={error}
+        setIsLoading={setIsLoading}
+        loader={loader}
+      />
     </div>
   );
 }
@@ -177,7 +233,7 @@ const GetStartedOne = ({ handleSubmit }) => {
   );
 };
 
-const RenderFormOne = ({ handleSubmit, useSignUpDetails, signUpInfo }) => {
+const RenderFormOne = ({ handleSubmit, useSignUpDetails }) => {
   return (
     <div>
       <p className="text-xl md:text-3xl font-semibold">{`What's your email?`}</p>
@@ -187,7 +243,6 @@ const RenderFormOne = ({ handleSubmit, useSignUpDetails, signUpInfo }) => {
           <input
             type="text"
             placeholder="Your e-mail"
-            value={signUpInfo.email}
             name="email"
             onChange={useSignUpDetails}
             className="w-full py-3 px-4 placeholder:font-thin placeholder:text-gray-500 outline-none focus:border-b focus:border-b-[3px] focus:border-pri transition-all duration-300 ease-in-out"
@@ -204,16 +259,58 @@ const RenderFormOne = ({ handleSubmit, useSignUpDetails, signUpInfo }) => {
   );
 };
 
-const RenderFormTwo = ({ handleSubmit, useSignUpDetails, signUpInfo }) => {
+const RenderFormTwo = ({
+  handleSubmit,
+  useSignUpDetails,
+  signUpInfo,
+  setSignUpInfo,
+}) => {
+  const [avatarPreview, setAvatarPreview] = useState(null);
+
+  const handleAvatarChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // Update the signUpInfo state with the selected file
+      setSignUpInfo({ ...signUpInfo, avatar: file });
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        // Here you could update a state to store the preview URL if you want to display the image
+        setAvatarPreview(reader.result);
+        setSignUpInfo({ ...signUpInfo, avatarPreview: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const fileInputRef = React.useRef(null);
+
   return (
     <div>
       <p className="text-xl md:text-3xl font-semibold">{`Open your account`}</p>
       <form action="" onSubmit={handleSubmit} className="py-10">
-        <div className="w-36 h-36 rounded-3xl border mx-auto mb-8 flex flex-col items-center justify-center bg-white">
-          <MdPerson className="text-[80px] text-gray-400" />
-          <p className="text-[11px] text-gray-400">
-            Tap or drag and drop your photo here
-          </p>
+        <div
+          className="upload-avatar w-36 h-36 rounded-3xl border mx-auto mb-8 flex flex-col items-center justify-center bg-white"
+          onClick={() => fileInputRef.current.click()}
+          style={{
+            backgroundImage: avatarPreview ? `url(${avatarPreview})` : 'none',
+            backgroundSize: 'cover',
+          }}
+        >
+          {!avatarPreview && (
+            <>
+              <MdPerson className="text-[80px] text-gray-400" />
+              <p className="text-[11px] text-gray-400">
+                Tap or drag and drop your photo here
+              </p>
+            </>
+          )}
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleAvatarChange}
+            style={{ display: 'none' }}
+            accept="image/*"
+          />
         </div>
         <div className="space-y-4">
           <div className="flex items-center px-4 rounded-md bg-white shadow w-full">
@@ -246,7 +343,8 @@ const RenderFormTwo = ({ handleSubmit, useSignUpDetails, signUpInfo }) => {
     </div>
   );
 };
-const RenderFormThree = ({ handleSubmit, useSignUpDetails, signUpInfo }) => {
+
+const RenderFormThree = ({ handleSubmit, useSignUpDetails }) => {
   const countryNames = [
     'Afghanistan',
     'Albania',
@@ -510,7 +608,7 @@ const RenderFormThree = ({ handleSubmit, useSignUpDetails, signUpInfo }) => {
   );
 };
 
-const RenderFormFour = ({ handleSubmit, useSignUpDetails, signUpInfo }) => {
+const RenderFormFour = ({ handleSubmit, useSignUpDetails }) => {
   return (
     <div>
       <p className="text-xl md:text-3xl font-semibold">{`Personal Information`}</p>
