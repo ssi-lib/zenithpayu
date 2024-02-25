@@ -29,23 +29,23 @@ const Partners = () => {
     ]
   };
   return (
-    <section className={isDarkTheme ? 'dark' : 'light-mode'}>
+    <section className={isDarkTheme ? 'dark' : 'light'}>
       <h1 className='text-center text-[2.25rem] my-10'>PARTNERS</h1>
-      <Slider {...settings} className='border-b-[1px] pb-10 mx-auto'>
-        <div>
-          <img src={Partner1} alt='' className='grayscale dark:grayscale-0 w-auto'/>
+      <Slider {...settings} className='border-b-[1px] md:pb-10 pb-4 mx-auto'>
+        <div className='px-8 md:px-0'>
+          <img src={Partner1} alt='' className='max-w-[100%] h-auto grayscale dark:grayscale-0'/>
         </div>
-        <div>
-          <img src={Partner2} alt='' className='grayscale dark:grayscale-0'/>
+        <div className='px-8 md:px-0'>
+          <img src={Partner2} alt='' className='max-w-[100%] h-auto grayscale dark:grayscale-0'/>
         </div>
-        <div>
-          <img src={Partner3} alt='' className='grayscale dark:grayscale-0'/>
+        <div className='px-8 md:px-0'>
+          <img src={Partner3} alt='' className='max-w-[100%] h-auto grayscale dark:grayscale-0'/>
         </div>
-        <div>
-          <img src={Partner4} alt='' className='grayscale dark:grayscale-0'/>
+        <div className='px-8 md:px-0'>
+          <img src={Partner4} alt='' className='max-w-[100%] h-auto grayscale dark:grayscale-0'/>
         </div>
-        <div>
-          <img src={Partner5} alt='' className='grayscale dark:grayscale-0'/>
+        <div className='px-8 md:px-0'>
+          <img src={Partner5} alt='' className='max-w-[100%] h-auto grayscale dark:grayscale-0'/>
         </div>
       </Slider>
     </section>
