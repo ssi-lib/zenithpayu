@@ -118,7 +118,7 @@ function GetStarted() {
       setErrorMsg(null);
     }
   };
-  console.log(signUpInfo);
+
   useEffect(() => {
     switch (set) {
       case 1:
