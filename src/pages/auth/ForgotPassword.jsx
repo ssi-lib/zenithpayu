@@ -4,12 +4,15 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Checking from '../../components/Checking';
 import AltButton from './components/AltButton';
+import { auth } from '../../../firebase';
+import { sendPasswordResetEmail } from 'firebase/auth';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [emailSent, setEmailSent] = useState(false); // New state for tracking email sent status
 
   const navigate = useNavigate();
 
@@ -17,12 +20,29 @@ function Login() {
     e.preventDefault();
     setIsLoading(true);
     setLoader(true);
+    setError(false); // Reset error state
+    setEmailSent(false); // Reset email sent status before attempting to send again
     if (!email) {
       setError(true);
-      setTimeout(() => setLoader(false), 2000);
+      setIsLoading(false);
+      setLoader(false);
       return;
     }
-    navigate('/dashboard');
+
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        setEmailSent(true); // Update email sent status to true
+        setIsLoading(false);
+        setLoader(false);
+        setInterval(() => navigate('/login'), 2000);
+        // Optionally, navigate the user or perform other actions here
+      })
+      .catch((error) => {
+        setError(true);
+        setIsLoading(false);
+        setLoader(false);
+        // Handle error (e.g., display error message)
+      });
   };
 
   return (
@@ -36,6 +56,12 @@ function Login() {
         <div className="text-center flex flex-col space-y-2 py-5">
           <p className="text-xl md:text-3xl font-semibold">Forgot Password</p>
           <p>Reset your password</p>
+          {emailSent && (
+            <div className="text-center p-4 bg-green-100 text-green-800">
+              Email sent successfully! Please check your email to reset your
+              password.
+            </div>
+          )}
           <form
             action=""
             className="pt-12 space-y-6"

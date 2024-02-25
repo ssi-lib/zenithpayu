@@ -5,7 +5,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        pri: '#0076BE',
+        'pri': '#0581ce',
+        'icon': '#0076be',
+        'feature': '#f1f5f6',
+        'lightgray': '#8e9a9d'
       },
     },
   },
