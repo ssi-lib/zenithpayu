@@ -6,11 +6,6 @@ import { GlassButton, BlueButton } from "../components/common/Button";
 
 function About() {
 
-  const sendMail = () => {
-    const mailtoURL = `mailto: support@swiftpayu.com`;
-    window.location.href = mailtoURL;
-  };
-
   return (
     <main className="bg-[#f5f5f5]">
       <section className="h-screen md:h-0 py-28 md:py-72 relative overflow-hidden text-white">
@@ -26,7 +21,9 @@ function About() {
             </div>
             <div className="flex justify-center gap-4 items-center">
               <BlueButton content="Open a free account" />
-              <GlassButton onClick={sendMail} text='Contact us' icon={<FaEnvelope className="text-white" />} />
+              <a href="mailto: support@swiftpayu.com">
+                <GlassButton text='Contact us' icon={<FaEnvelope className="text-white" />} />
+              </a>
             </div>
           </div>
         </div>
