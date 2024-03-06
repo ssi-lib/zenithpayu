@@ -15,11 +15,11 @@ import { Link } from 'react-router-dom';
 function LandingPage() {
   return (
     <main className="overflow-hidden">
-      <section className="min-h-[120vh] relative overflow-hidden text-white">
+      <section className="h-[150vh] md:h-screen relative text-white">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${landingHero})`,
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${landingHero})`,
             backgroundPosition: '10%',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
@@ -46,7 +46,7 @@ function LandingPage() {
                 </Link>
               </div>
             </div>
-            <div className="md:w-[50%]">
+            <div className="md:w-[60%]">
               <TransferForm />
             </div>
           </div>
