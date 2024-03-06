@@ -4,7 +4,7 @@ const HelloWorld = () => {
   const [isDark, setIsDark] = useState(false);
   return (
     <div>
-      <p>Test Me unh</p>
+      <p>Test Me</p>
       <button data-testid="toggle-btn" onClick={() => setIsDark(!isDark)}>
         Toggle Mode
       </button>
