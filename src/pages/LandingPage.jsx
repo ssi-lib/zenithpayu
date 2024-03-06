@@ -19,7 +19,7 @@ function LandingPage() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `linearurl(${landingHero})`,
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${landingHero})`,
             backgroundPosition: '10%',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
