@@ -39,7 +39,7 @@ const Nav = () => {
 
   return (
     <div className="text-gray-100">
-      <nav className="justify-between flex items-center p-4 w-screen md:px-[9%] top-0 z-40  border-b-[1px]">
+      <nav className="justify-between flex items-center p-4 w-screen md:px-[5%] top-0 z-40  border-b-[1px]">
         <div className="flex gap-[2rem]">
           <a className="logo" href="/" aria-label="Go to homepage">
             <div

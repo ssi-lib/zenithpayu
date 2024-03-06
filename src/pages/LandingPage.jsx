@@ -28,7 +28,7 @@ function LandingPage() {
           <div className="absolute z-30">
             <Nav />
           </div>
-          <div className="absolute md:top-1/4 mt-28 md:mt-0 md:px-[9%] px-[2%] md:flex items-center gap-[1rem] z-10">
+          <div className="absolute md:top-1/4 mt-28 md:mt-0 md:px-[5%] px-[2%] md:flex items-center gap-[1rem] z-10">
             <div>
               <h1 className="md:text-6xl text-3xl mb-8">
                 Pay Anyone,<br></br> Anywhere
