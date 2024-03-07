@@ -14,21 +14,21 @@ import { Link } from 'react-router-dom';
 
 function LandingPage() {
   return (
-    <main className="overflow-hidden">
-      <section className="h-[150vh] md:h-screen relative text-white">
+    <main className="">
+      <section className="relative text-white">
         <div
-          className="absolute inset-0"
+          className="md:h-screen"
           style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${landingHero})`,
-            backgroundPosition: '10%',
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${landingHero})`,
+            backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
           }}
         >
-          <div className="absolute z-30">
+          <div className="z-30">
             <Nav />
           </div>
-          <div className="absolute md:top-1/4 mt-28 md:mt-0 md:px-[5%] px-[2%] md:flex items-center gap-[1rem] z-10">
+          <div className="md:mt-0 md:px-[5%] py-20 px-[2%] md:flex items-center gap-[1rem] z-10">
             <div>
               <h1 className="md:text-6xl text-3xl mb-8">
                 Pay Anyone,<br></br> Anywhere
@@ -37,7 +37,7 @@ function LandingPage() {
                 Quickly and easily send, receive and request money online with
                 SwiftPayu. Get a customised solution to fit your business needs.
               </p>
-              <div className="flex gap-4">
+              <div className="flex gap-4 flex-wrap justify-center items-center">
                 <Link to={'/get-started'}>
                   <GlassButton text="Open an account" icon={<FaPlay />} />
                 </Link>
@@ -51,7 +51,6 @@ function LandingPage() {
             </div>
           </div>
         </div>
-        <div className="absolute inset-0 bg-gray-900 opacity-60 z-1"></div>
       </section>
       <Partners />
       <WhyUs />
