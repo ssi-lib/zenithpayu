@@ -1,4 +1,3 @@
-import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -65,11 +64,11 @@ const Testimonials = () => {
                 className="mx-auto mb-2 text-[#8e9a9d] opacity-30"
               />
               <p className="mb-6">
-                “I've been using SwiftPayu for a while now and it has completely
+                {`“I've been using SwiftPayu for a while now and it has completely
                 changed the way I manage my finances. Their rates are fair, and
                 the platform is incredibly easy to use. I highly recommend
                 SwiftPayu to anyone looking for a reliable and efficient way to
-                handle their money.”
+                handle their money.”`}
               </p>
               <strong>De Mortel</strong>
               <p>Online Retail</p>

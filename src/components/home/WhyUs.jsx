@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaHandPointer, FaShare, FaDollarSign, FaLock } from 'react-icons/fa';
 
 const items = [

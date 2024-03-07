@@ -1,4 +1,3 @@
-import React from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Partner1 from '../../assets/partner-1.png';
@@ -7,11 +6,8 @@ import Partner3 from '../../assets/partner-3.png';
 import Partner4 from '../../assets/partner-4.png';
 import Partner5 from '../../assets/partner-5.png';
 import Slider from 'react-slick';
-import useThemeDetector from '../../hooks/useThemeDetector';
 
 const Partners = () => {
-  const isDarkTheme = useThemeDetector();
-
   const settings = {
     speed: 500,
     slidesToShow: 6,
@@ -29,7 +25,7 @@ const Partners = () => {
     ],
   };
   return (
-    <section className={isDarkTheme ? 'dark' : 'light'}>
+    <section className="overflow-hidden">
       <h1 className="text-center text-[2.25rem] my-10">PARTNERS</h1>
       <Slider {...settings} className="border-b-[1px] md:pb-10 pb-4 mx-auto">
         <div className="px-8 md:px-0">

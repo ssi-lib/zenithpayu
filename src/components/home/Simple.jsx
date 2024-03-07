@@ -1,4 +1,3 @@
-import React from 'react';
 import { BlueButton } from '../common/Button';
 import { Link } from 'react-router-dom';
 

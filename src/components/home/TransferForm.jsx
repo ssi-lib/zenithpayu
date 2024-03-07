@@ -1,10 +1,5 @@
 import { useState } from 'react';
-import {
-  FaAngleDown,
-  FaArrowDown,
-  FaDollarSign,
-  FaLongArrowAltDown,
-} from 'react-icons/fa';
+import { FaAngleDown, FaDollarSign, FaLongArrowAltDown } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import useCurrency from '../../hooks/useCurrency';
 import useCountry from '../../hooks/useCountry';
@@ -25,9 +20,6 @@ const TransferForm = () => {
     receiver: 'United State',
     payer: 'France',
   });
-
-  // const [countryFrom, setCountryFrom] = useState('USA');
-  // const [countryTo, setCountryTo] = useState('Germany');
 
   const { currencyWithFlag, rates } = useCurrency(currencyInfo.from);
   const { countryData } = useCountry();
@@ -73,15 +65,15 @@ const TransferForm = () => {
           <form className="p-6">
             <div className="flex flex-col">
               <label className="mb-2">You Send</label>
-              <div className="flex items-center rounded">
+              <div className="flex border h-12 items-center rounded">
                 <input
-                  className="border p-3 flex-grow"
+                  className="w-full px-2 h-full"
                   type="text"
                   value={currencyInput}
                   onChange={handleCurrencyInputChange}
                 />
                 <select
-                  className="border p-3.5 bg-gray-200 rounded-r"
+                  className="bg-gray-200 h-full rounded-r"
                   value={currencyInfo.from}
                   name="from"
                   onChange={handleCurrencyChange}
@@ -98,14 +90,14 @@ const TransferForm = () => {
             <FaLongArrowAltDown className="my-4 mx-auto text-gray-400 text-3xl" />
             <div className="flex flex-col">
               <label className="mb-2">Recipient gets</label>
-              <div className="flex items-center rounded">
+              <div className="flex border h-12 items-center rounded">
                 <input
-                  className="border p-3 rounded-l-md flex-grow bg-gray-300"
+                  className="bg-gray-300 h-full w-full px-2"
                   type="text"
                   value={convertCurrency()}
                 />
                 <select
-                  className="border p-3.5 bg-gray-200 rounded-r"
+                  className="h-full bg-gray-200 rounded-r"
                   value={currencyInfo.to}
                   name="to"
                   onChange={handleCurrencyChange}

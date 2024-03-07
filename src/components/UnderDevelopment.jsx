@@ -1,5 +1,3 @@
-import React from 'react';
-
 function UnderDevelopment() {
   return (
     <div className="loader-dash">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import MobileNavbar from './MobileNavBar';
 import { BlueButton } from './Button';
 import { Link } from 'react-router-dom';
@@ -83,7 +83,7 @@ const Nav = () => {
               </b>
             </div>
           </a>
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <ul className="flex gap-[2rem] text-sm md:pt-1">
               {navLinks.map((link, index) => (
                 <li className="hover:text-white" key={index}>
@@ -95,7 +95,7 @@ const Nav = () => {
         </div>
         {!openNav ? (
           <button
-            className="md:hidden flex flex-col items-center justify-center w-10 h-10 text-white focus:outline-none"
+            className="lg:hidden flex flex-col items-center justify-center w-10 h-10 text-white focus:outline-none"
             onClick={handleMobileNav}
           >
             <span
@@ -112,7 +112,7 @@ const Nav = () => {
           </button>
         ) : (
           <button
-            className={`md:hidden w-10 h-10 flex flex-col items-center justify-center ${
+            className={`lg:hidden w-10 h-10 flex flex-col items-center justify-center ${
               openNav ? 'open' : ''
             }`}
             onClick={() => setOpenNav(!openNav)}

@@ -17,7 +17,7 @@ function LandingPage() {
     <main className="">
       <section className="relative text-white">
         <div
-          className="md:h-screen"
+          className="md:h-screen w-full"
           style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${landingHero})`,
             backgroundPosition: 'center',
@@ -37,7 +37,7 @@ function LandingPage() {
                 Quickly and easily send, receive and request money online with
                 SwiftPayu. Get a customised solution to fit your business needs.
               </p>
-              <div className="flex gap-4 flex-wrap justify-center items-center">
+              <div className="flex gap-4 flex-wrap justify-center items-center md:justify-start">
                 <Link to={'/get-started'}>
                   <GlassButton text="Open an account" icon={<FaPlay />} />
                 </Link>
