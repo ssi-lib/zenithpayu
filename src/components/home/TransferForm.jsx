@@ -45,7 +45,9 @@ const TransferForm = () => {
       <div className="flex justify-center">
         <button
           className={`py-6 px-10 w-[100%] transition-all ease-in-out duration-300 ${
-            activeTab === 'currency' ? '' : 'bg-gray-200 text-gray-700'
+            activeTab === 'currency'
+              ? ''
+              : 'bg-gray-200 text-gray-700 rounded-tl'
           }`}
           onClick={() => handleTabChange('currency')}
         >
@@ -53,7 +55,9 @@ const TransferForm = () => {
         </button>
         <button
           className={`py-6 px-10 w-[100%] transition-all ease-in-out duration-300 ${
-            activeTab === 'country' ? '' : 'bg-gray-200 text-gray-700'
+            activeTab === 'country'
+              ? ''
+              : 'bg-gray-200 text-gray-700 rounded-tr'
           }`}
           onClick={() => handleTabChange('country')}
         >

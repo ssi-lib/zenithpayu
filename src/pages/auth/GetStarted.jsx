@@ -27,6 +27,7 @@ import { auth, db } from '../../../firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import Checking from '../../components/Checking';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../../components/common/Modal';
 
 function GetStarted() {
   const [set, setSet] = useState(0);
@@ -59,6 +60,8 @@ function GetStarted() {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [confirmation, setConfirmation] = useState(false);
+
   const navigate = useNavigate();
 
   const useSignUpDetails = ({ target }) => {
@@ -93,16 +96,34 @@ function GetStarted() {
       setPinError(true);
       return;
     }
+    setConfirmation(true);
+  };
+
+  const onConfirmSignUp = async () => {
+    setConfirmation(false);
+    const {
+      password,
+      c_password,
+      account_pin,
+      v_account_pin,
+      email,
+      avatar,
+      avatarPreview,
+      phone_number,
+      ...saveInfo
+    } = signUpInfo;
+
     try {
       setIsLoading(true);
       setLoader(true);
-      console.log(password);
+      console.log({ password });
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
       const user = userCredential.user;
+
       updateProfile(auth.currentUser, {
         displayName: `${signUpInfo.first_name} ${signUpInfo.last_name}`,
         phoneNumber: signUpInfo.phone_number,
@@ -210,6 +231,25 @@ function GetStarted() {
         setIsLoading={setIsLoading}
         loader={loader}
       />
+      <Modal isOpen={confirmation} onClose={() => setConfirmation(false)}>
+        <div className="text-center">
+          <p className="mb-5">Are you sure you want to sign up?</p>
+          <div className="mt-5 flex justify-center items-center space-x-2">
+            <button
+              onClick={() => navigate('/login')}
+              className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={onConfirmSignUp}
+              className="px-4 py-2 bg-pri text-white rounded hover:bg-blue-700"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
@@ -529,7 +569,7 @@ const RenderFormThree = ({ handleSubmit, useSignUpDetails }) => {
             <select
               name="country"
               onChange={useSignUpDetails}
-              className="w-full py-3 px-4 placeholder:font-thin placeholder:text-gray-500 outline-none focus:border-b focus:border-b-[3px] focus:border-pri transition-all duration-300 ease-in-out"
+              className="w-full py-3 h-12 px-4 placeholder:font-thin placeholder:text-gray-500 outline-none focus:border-b focus:border-b-[3px] focus:border-pri transition-all duration-300 ease-in-out"
             >
               <option value="">Select Country</option>
               {countryNames.map((country) => (
@@ -638,7 +678,7 @@ const RenderFormFour = ({ handleSubmit, useSignUpDetails }) => {
               type="date"
               name="date"
               onChange={useSignUpDetails}
-              className="w-full py-3 px-4 placeholder:font-thin placeholder:text-gray-500 outline-none focus:border-b focus:border-b-[3px] focus:border-pri transition-all duration-300 ease-in-out"
+              className="w-full py-3 px-4 h-12 placeholder:font-thin placeholder:text-gray-500 outline-none focus:border-b focus:border-b-[3px] focus:border-pri transition-all duration-300 ease-in-out"
             />
           </div>
 
@@ -649,7 +689,7 @@ const RenderFormFour = ({ handleSubmit, useSignUpDetails }) => {
             <select
               name="account_type"
               onChange={useSignUpDetails}
-              className="w-full py-3 px-4 placeholder:font-thin placeholder:text-gray-500 outline-none focus:border-b focus:border-b-[3px] focus:border-pri transition-all duration-300 ease-in-out"
+              className="w-full py-3 px-4 h-12  placeholder:font-thin placeholder:text-gray-500 outline-none focus:border-b focus:border-b-[3px] focus:border-pri transition-all duration-300 ease-in-out"
             >
               <option value="">Select Account Type</option>
               <option value="Savings Account">Savings Account</option>
@@ -668,7 +708,7 @@ const RenderFormFour = ({ handleSubmit, useSignUpDetails }) => {
               <select
                 name="gender"
                 onChange={useSignUpDetails}
-                className="w-full py-3 px-4 placeholder:font-thin placeholder:text-gray-500 outline-none focus:border-b focus:border-b-[3px] focus:border-pri transition-all duration-300 ease-in-out"
+                className="w-full py-3 px-4 h-12 placeholder:font-thin placeholder:text-gray-500 outline-none focus:border-b focus:border-b-[3px] focus:border-pri transition-all duration-300 ease-in-out"
               >
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>

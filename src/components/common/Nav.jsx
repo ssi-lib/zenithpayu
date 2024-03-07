@@ -22,7 +22,7 @@ export const navLinks = [
   },
   {
     title: 'CONTACT US',
-    url: '/contact',
+    url: 'mailto:someone@example.com',
   },
   {
     title: 'HELP',

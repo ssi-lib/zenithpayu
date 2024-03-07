@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 
 function LandingPage() {
   return (
-    <main className="">
+    <main className="overflow-hidden">
       <section className="relative text-white">
         <div
           className="md:h-screen w-full"
