@@ -23,8 +23,8 @@ export default {
         'pri': '#0581ce',
         'icon': '#0076be',
         'feature': '#f1f5f6',
-        'lightgray': '#8e9a9d'
-        neutral: 'gray'
+        'lightgray': '#8e9a9d',
+        'neutral': 'gray'
       },
     },
   },
