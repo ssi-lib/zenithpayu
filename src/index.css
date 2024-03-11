@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .button{
+        @apply rounded-md py-2 px-4 text-center w-full ;
+    }
+}
