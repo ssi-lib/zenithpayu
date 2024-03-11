@@ -27,10 +27,10 @@ function DashboardMain({page}) {
   }
   return (
     <LinksContext.Provider value={linkObj}>
-      {renderItem[page].header}
-      <main className='grid grid-cols-[24%_50%_24%] max-w-[1280px] mx-auto px-4 pt-20 gap-[1%]'>
+      {renderItem[page]?.header}
+      <main className='sm:grid grid-cols-[24%_50%_24%] max-w-[1280px] mx-auto px-4 pt-20 gap-[1%]'>
         <AsideLeft />
-        {renderItem[page].component}
+        {renderItem[page]?.component}
         <AsideRight />
       </main>
       <div><i className='bi bi-credit-card text-blue-300'></i>Dashboard Main</div>

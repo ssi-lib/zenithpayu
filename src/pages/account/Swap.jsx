@@ -12,7 +12,7 @@ function Swap() {
           </div>
           <div className="flex justify-between items-center">
 
-            <input type="text" value={'9522.00'} className='border-none outline-none focus:border-b-2' />
+            <input type="text" defaultValue={'9522.00'} className='border-none outline-none focus:border-b-2' />
             <select name="" id="">
               <option value="EUR" className='outline-none border-none'>EUR</option>
             </select>
@@ -21,7 +21,7 @@ function Swap() {
         <div className="convert_to">
           <h3>to</h3>
           <div className="flex justify-between items-center">
-            <input type="text" value={0} />
+            <input type="text" defaultValue={0} />
             <select name="" id="">
               <option value="USD" className='outline-none border-none'>USD</option>
             </select>

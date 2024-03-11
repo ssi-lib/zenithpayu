@@ -40,10 +40,6 @@ function Settings() {
 
           ))}
 
-
-
-
-
           <Button textContent={'Edit Information'} styles={'bg-blue-600 text-white mt-3'} />
         </div>
       </div>

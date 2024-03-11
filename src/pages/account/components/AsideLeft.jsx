@@ -21,7 +21,7 @@ function AsideLeft() {
   ]
 
   return (
-    <aside className='sticky top-20'>
+    <aside className='sticky top-20 hidden sm:block'>
       <div className="user flex gap-4 p-4">
         <a href="#"><img src="#" alt="prof" /></a>
         <div className='flex flex-col gap-2'>

@@ -4,15 +4,14 @@ import { LinksContext } from "./DashboardMain";
 function Home() {
   const links = useContext(LinksContext)
   return (
-    <div className='home_render '>
+    <div className='home_render'>
           <div className='py-6 px-4 bg-gray-300 rounded-md flex flex-col gap-6'>
             <div className="acc flex justify-between border-b-2 pb-6 ">
               <div className="acc_balance flex-1">
                 <p>EUR Balance</p>
-                <p>E <span>0.00</span></p>
-                
+                <p>E <span>0.00</span></p>  
               </div>
-              <div className="acc_status flex-1">
+              <div className="acc_status flex-1 hidden sm:block">
                 <p>Account Status</p>
                 <p>Dormant</p>
               </div>

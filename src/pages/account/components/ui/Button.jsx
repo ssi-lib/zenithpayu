@@ -1,7 +1,7 @@
 const Button = ({textContent, styles,callback}) => {
     return (
       <button 
-        className={'rounded-md py-2 px-4 text-center w-full '+styles}
+        className={'button '+styles}
         onClick = {callback}
         >
             {textContent}

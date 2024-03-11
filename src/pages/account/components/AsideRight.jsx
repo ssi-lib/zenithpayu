@@ -8,7 +8,7 @@ function AsideRight() {
         { textContent: 'Logout', icon: '', link: '' },
     ]
     return (
-        <div className='sticky top-20 bg-gray-300'>
+        <div className='sticky top-20 bg-gray-300 hidden sm:block'>
             <div className="nav_secondary px-2 flex flex-col gap-2">
                 <ul>
                     {secondaryNavContent.map((n, i) => (
