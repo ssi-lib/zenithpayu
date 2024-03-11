@@ -20,7 +20,10 @@ export default {
         xl: '1280px'
       },
       colors: {
-        pri: '#0581ce',
+        'pri': '#0581ce',
+        'icon': '#0076be',
+        'feature': '#f1f5f6',
+        'lightgray': '#8e9a9d'
         neutral: 'gray'
       },
     },
