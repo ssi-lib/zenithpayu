@@ -154,10 +154,10 @@ function Transfer() {
                   name=""
                   id=""
                   required
-                  className="block w-full p-2 rounded-md shadow mb-3"
+                  className="block w-full p-2 rounded-md shadow mb-3 bg-white"
                 >
-                  <option value="eth">ETH</option>
-                  <option value="btc">BTC</option>
+                  <option value="eth">Ethereum</option>
+                  <option value="btc">Bitcoin</option>
                 </select>
               </label>
               <label htmlFor="" className="text-sm text-neutral">

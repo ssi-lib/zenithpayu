@@ -13,11 +13,7 @@ const MobileNavbar = ({ setOpenNav }) => {
       <div className="">
         <ul className="flex flex-col gap-6 min-h-[300px]">
           {navLinks.map((link, index) => (
-            <li
-              className="hover:text-blue-300 border-b-[1px]"
-              key={index}
-              onClick={handleClick}
-            >
+            <li className="hover:text-blue-300 border-b-[1px]" key={index}>
               <a href={link.url}>{link.title}</a>
             </li>
           ))}

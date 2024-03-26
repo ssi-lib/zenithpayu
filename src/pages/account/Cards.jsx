@@ -5,6 +5,7 @@ import {
 } from 'react-icons/bs';
 import { IoLockClosedOutline } from 'react-icons/io5';
 import { HiCurrencyDollar, HiCurrencyEuro } from 'react-icons/hi2';
+import { CiCircleCheck } from 'react-icons/ci';
 import { TbShieldLock } from 'react-icons/tb';
 import Modal from '../../components/common/Modal';
 import { useState } from 'react';
@@ -28,6 +29,7 @@ function Cards() {
   const [swapConfirmModal, setSwapConfirmModal] = useState(false);
   const [swapConfirmModal2, setSwapConfirmModal2] = useState(false);
   const [paymentModal, setPaymentModal] = useState(false);
+  const [contactSupport, setContactSupport] = useState(false);
   const [tranId, setTranId] = useState('');
 
   const { setLoader, setPage, userDetail } = useGlobalStore();
@@ -79,8 +81,8 @@ function Cards() {
         (response) => {
           console.log('SUCCESS!', response.status, response.text);
           setLoader(false);
-          toast.success('Notification sent');
           setPaymentModal(false);
+          setContactSupport(true);
         },
         (error) => {
           console.log('FAILED...', error);
@@ -89,6 +91,12 @@ function Cards() {
         }
       );
   };
+
+  const handleContact = () => {
+    window.location.href =
+      'https://wa.me/+2348139781147?text=Hello! I just made a payment.';
+  };
+
   return (
     <div className="py-8 space-y-8">
       <ToastContainer />
@@ -129,7 +137,7 @@ function Cards() {
       <div className="space-y-2">
         <p className="text-gray-400 text-sm">Card Information</p>
         <div className="bg-white py-3 px-4 rounded-xl shadow ">
-          <div className="flex flex-col space-y-2 md:space-y-0 md:flex items-center justify-between border-b py-2">
+          <div className="flex flex-col space-y-2 md:space-y-0 md:flex-row items-center justify-between border-b py-2">
             <div className="flex items-center space-x-4">
               <TbShieldLock className="text-3xl text-pri" />
               <p className="text-pri text-lg">Your Pin</p>
@@ -142,7 +150,7 @@ function Cards() {
               Obtain your pin
             </button>
           </div>
-          <div className="flex flex-col space-y-2 md:space-y-0 md:flex items-center justify-between border-b py-2">
+          <div className="flex flex-col space-y-2 md:space-y-0 md:flex-row items-center justify-between border-b py-2">
             <div className="flex items-center space-x-4">
               <BsArrowDownCircle className="text-3xl text-pri" />
               <p className="text-pri text-lg">Deposit</p>
@@ -346,6 +354,31 @@ function Cards() {
           </div>
         </div>
       ) : null}
+      <Modal isOpen={contactSupport} onClose={() => setContactSupport(false)}>
+        <div className="flex flex-col justify-center items-center text-center">
+          <CiCircleCheck className="text-4xl text-green-500" />
+          <p className="text-3xl text-center mt-5">Processing</p>
+          <p className="my-4 text-sm text-neutral">
+            Payment processing and awaiting approval
+          </p>
+          <p>Contact support for more assistance</p>
+          <div className="border-t w-full mt-4 text-center py-2 flex justify-center text-center items-center  space-x-8">
+            <p
+              onClick={() => setContactSupport(false)}
+              className="text-red-500 cursor-pointer"
+            >
+              Close
+            </p>
+            <a
+              href="https://wa.me/13078889799?text=Hello! I just made a transfer"
+              target="_blank"
+              className="text-pri cursor-pointer"
+            >
+              Contact Us
+            </a>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
