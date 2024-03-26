@@ -67,7 +67,7 @@ function Home() {
           width={400}
           controls
           className="rouned-md"
-          autoPlay
+          autoPlay={false}
           muted
         >
           <source src={zenithpayu} type="video/mp4"></source>

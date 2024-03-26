@@ -157,20 +157,9 @@ const AdminDashboard = () => {
                 </td>
                 <td className="py-5 border-b border-gray-200 text-sm whitespace-nowrap px-3">
                   <span
-                    className={`relative inline-block py-1 font-semibold text-${
-                      user.status === 'pending' ? 'orange-500' : 'green-500'
-                    } leading-tight`}
+                    className={`relative inline-block py-1 font-semibold leading-tight`}
                   >
-                    <span
-                      aria-hidden
-                      className={`absolute inset-0 bg-${
-                        user.status === 'pending' ? 'orange-200' : 'green-200'
-                      } opacity-50 rounded-full`}
-                    ></span>
-                    <span className="relative">
-                      {user.status.slice(0, 1).toUpperCase() +
-                        user.status.slice(1)}
-                    </span>
+                    <span className="relative">{user?.role || 'User'}</span>
                   </span>
                 </td>
                 <td className="py-5 border-b border-gray-200 text-sm whitespace-nowrap px-3 rounded-r-lg">

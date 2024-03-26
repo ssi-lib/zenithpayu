@@ -92,11 +92,6 @@ function Cards() {
       );
   };
 
-  const handleContact = () => {
-    window.location.href =
-      'https://wa.me/+2348139781147?text=Hello! I just made a payment.';
-  };
-
   return (
     <div className="py-8 space-y-8">
       <ToastContainer />

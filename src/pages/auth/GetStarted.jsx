@@ -142,6 +142,8 @@ function GetStarted() {
         await updateDoc(uData, {
           photoURL: profileImageUrl,
           balance: 0,
+          role: 'User',
+          status: 'Basic',
         });
       }
 
