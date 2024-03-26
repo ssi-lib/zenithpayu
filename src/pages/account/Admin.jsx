@@ -3,7 +3,7 @@ import { useFetchUsers, toggleUserStatus } from '../../hooks/useFetchUser';
 import { useGlobalStore } from '../../store/Context';
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, increment, updateDoc } from 'firebase/firestore';
 
 const AdminDashboard = () => {
   const { users, loading, refetch } = useFetchUsers(db);
@@ -55,7 +55,7 @@ const AdminDashboard = () => {
       const userId = checkedUser[0].user.id;
       const newBalance = checkedUser[0].inputVal;
       const updateDocRef = doc(db, 'users', userId);
-      updateDoc(updateDocRef, { balance: newBalance })
+      updateDoc(updateDocRef, { balance: increment(newBalance) })
         .then(() => {
           refetch();
           toast.success('User balance updated successfully.');

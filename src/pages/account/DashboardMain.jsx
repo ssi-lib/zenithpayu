@@ -20,6 +20,7 @@ import NotificationsList from './NotificationList';
 import Statement from './Statement';
 import Transactions from './Transactions';
 import AdminDashboard from './Admin';
+import { IoHelp } from 'react-icons/io5';
 
 export const LinksContext = createContext();
 
@@ -73,6 +74,15 @@ function DashboardMain() {
         <AsideRight />
       </main>
       {loader ? <Loader /> : null}
+      <a
+        href="http://wa.me/13078889799?text=Hello! I need your support"
+        target="_blank"
+      >
+        <div className="sticky bottom-20 flex flex-col shadow-md items-center justify-center w-14 h-14 rounded-full bg-[#045385] text-white mt-4 ml-4">
+          <IoHelp />
+          <p className="text-[10px]">Support</p>
+        </div>
+      </a>
     </LinksContext.Provider>
   );
 }

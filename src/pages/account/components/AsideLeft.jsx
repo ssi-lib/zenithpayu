@@ -110,10 +110,6 @@ function AsideLeft() {
             </div>
           </div>
         </nav>
-        <div className="flex flex-col items-center justify-center w-14 h-14 rounded-full bg-[#045385] text-white mt-4 ml-4">
-          <IoHelp />
-          <p className="text-[11px]">Help</p>
-        </div>
       </aside>
       <footer className="fixed w-full bottom-0 bg-white border-t lg:hidden z-50">
         <div
