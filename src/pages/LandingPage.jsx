@@ -29,7 +29,7 @@ function LandingPage() {
             <Nav />
           </div>
           <div className="md:mt-0 md:px-[5%] py-20 px-[2%] md:flex items-center gap-[1rem] z-10">
-            <div>
+            <div className="text-center md:text-start">
               <h1 className="md:text-6xl text-3xl mb-8">
                 Pay Anyone,<br></br> Anywhere
               </h1>
@@ -38,7 +38,7 @@ function LandingPage() {
                 ZenithPayu. Get a customised solution to fit your business
                 needs.
               </p>
-              <div className="flex gap-4 flex-wrap justify-center items-center md:justify-start">
+              <div className="flex gap-2 my-10 flex-wrap justify-center items-center md:justify-start">
                 <Link to={'/get-started'}>
                   <GlassButton text="Open an account" icon={<FaPlay />} />
                 </Link>

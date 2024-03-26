@@ -117,7 +117,9 @@ const TransferForm = () => {
               </div>
             </div>
             <div className="p-4 md:w-[100%] w-[100%] mx-auto bg-pri text-center text-white my-8 rounded-xl">
-              <button>Continue</button>
+              <Link to={'/login'}>
+                <button>Continue</button>
+              </Link>
             </div>
           </form>
         </div>

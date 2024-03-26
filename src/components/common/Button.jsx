@@ -11,7 +11,7 @@ export const BlueButton = ({ content, width, href }) => {
         href={href}
         type="button"
         style={buttonStyle}
-        className="font-semibold text-center rounded-xl bg-pri px-3 md:px-10 py-4 hover:bg-blue-500 btn-gradient text-white"
+        className="font-semibold text-center rounded-xl bg-pri px-2 text-xs md:text-base md:px-3 md:px-10 py-4 hover:bg-blue-500 btn-gradient text-white"
       >
         {content}
       </button>
@@ -21,7 +21,7 @@ export const BlueButton = ({ content, width, href }) => {
 
 export const GlassButton = ({ text, icon }) => {
   return (
-    <div className="font-semibold py-3 md:min-w-[12%] px-8 border-2 text-white my-8 rounded-xl inline-flex items-center justify-center gap-2">
+    <div className="font-semibold py-3 md:min-w-[12%] border-2 text-white px-8 rounded-xl inline-flex items-center justify-center gap-2">
       {icon}
       <button>{text}</button>
     </div>

@@ -121,18 +121,20 @@ function AsideLeft() {
             userDetail.role === 'admin' ? 'grid-cols-6' : 'grid-cols-5'
           } justify-between items-center px-4`}
         >
-          {primaryNavContent.map((e, i) => (
-            <div
-              key={i}
-              onClick={() => handlePageChange(e, i)}
-              className={`flex flex-col items-center justify-center py-2 text-lg ${
-                active === i ? 'border-t-2 border-pri' : ''
-              }`}
-            >
-              <div className="text-xl text-pri">{e.icon}</div>
-              <p className="text-[10px]">{e.textContent}</p>
-            </div>
-          ))}
+          {primaryNavContent
+            .filter((e) => (userDetail?.role ? e : e.route !== 'admin'))
+            .map((e, i) => (
+              <div
+                key={i}
+                onClick={() => handlePageChange(e, i)}
+                className={`flex flex-col items-center justify-center py-2 text-lg ${
+                  active === i ? 'border-t-2 border-pri' : ''
+                }`}
+              >
+                <div className="text-xl text-pri">{e.icon}</div>
+                <p className="text-[10px]">{e.textContent}</p>
+              </div>
+            ))}
         </div>
       </footer>
     </>

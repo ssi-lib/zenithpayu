@@ -423,11 +423,13 @@ const RenderFormThree = ({ handleSubmit, useSignUpDetails }) => {
               className="w-full py-3 h-12 px-4 placeholder:font-thin placeholder:text-gray-500 outline-none focus:border-b focus:border-b-[3px] focus:border-pri transition-all duration-300 ease-in-out"
             >
               <option value="">Select Country</option>
-              {countryData.map((country) => (
-                <option key={country.name} value={country.name}>
-                  {country.name}
-                </option>
-              ))}
+              {countryData
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((country) => (
+                  <option key={country.name} value={country.name}>
+                    {country.name}
+                  </option>
+                ))}
             </select>
           </div>
 
