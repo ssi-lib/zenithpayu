@@ -296,7 +296,7 @@ function Cards() {
                   <div className="flex items-center space-x-2 text-xs">
                     <p className="text-neutral">Currency -</p>
                     <img src={eth} alt="" className="w-7 h-7" />
-                    <p>USDT</p>
+                    <p>ETH</p>
                   </div>
                   <div className="flex items-center space-x-1 text-xs">
                     <p className="text-neutral">Network -</p>
