@@ -9,6 +9,7 @@ import Slider from 'react-slick';
 import one from '../../assets/one.png';
 import two from '../../assets/two.png';
 import three from '../../assets/three.png';
+import { generateAccountNumber } from '../../../functions/generateAccountNumber';
 
 function Home() {
   // const links = useContext(LinksContext);
@@ -26,7 +27,7 @@ function Home() {
   return (
     <div className="home_render mt-2">
       <div className="py-6 px-4 bg-white rounded-xl flex flex-col gap-6 z-50">
-        <div className="acc flex justify-between border-b-2 pb-6">
+        <div className="acc md:flex justify-between border-b-2 pb-6">
           <div className="acc_balance flex-1">
             <p className="">Dollar Balance</p>
             <p className="text-3xl font-bold">
@@ -37,7 +38,11 @@ function Home() {
             <p className="">Account Status</p>
             <p className="text-3xl font-bold opacity-60">Dormant</p>
           </div>
+          <p className="text-neutral text-[12px] md:hidden">
+            Your account Number: {generateAccountNumber()}
+          </p>
         </div>
+
         <div className="grid grid-cols-4 justify-between items-center gap-y-12">
           {homeOptions.map((opt, idx) => (
             <div

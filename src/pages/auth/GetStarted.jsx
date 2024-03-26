@@ -30,6 +30,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from '../../components/common/Modal';
 import useCountry from '../../hooks/useCountry';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { generateAccountNumber } from '../../../functions/generateAccountNumber';
 
 function GetStarted() {
   const [set, setSet] = useState(0);
@@ -144,6 +145,7 @@ function GetStarted() {
           balance: 0,
           role: 'User',
           status: 'Basic',
+          account_number: generateAccountNumber(),
         });
       }
 

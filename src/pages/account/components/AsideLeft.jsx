@@ -10,6 +10,7 @@ import { CiGrid42 } from 'react-icons/ci';
 import { IoHelp } from 'react-icons/io5';
 import { useGlobalStore } from '../../../store/Context';
 import { RiAdminFill } from 'react-icons/ri';
+import { generateAccountNumber } from '../../../../functions/generateAccountNumber';
 
 function AsideLeft() {
   // const links = useContext(LinksContext);
@@ -55,9 +56,12 @@ function AsideLeft() {
           </div>
           <div className="">
             <p>{userDetail?.first_name + ' ' + userDetail?.last_name}</p>
-            <span className="text-neutral text-[12px]">
+            <p className="text-neutral text-[12px]">
               {userDetail?.account_type}
-            </span>
+            </p>
+            <p className="text-neutral text-[10px]">
+              Your account Number: {generateAccountNumber()}
+            </p>
           </div>
         </div>
         <nav>

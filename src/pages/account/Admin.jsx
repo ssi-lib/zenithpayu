@@ -7,7 +7,7 @@ import { doc, increment, updateDoc } from 'firebase/firestore';
 
 const AdminDashboard = () => {
   const { users, loading, refetch } = useFetchUsers(db);
-  const { setLoader } = useGlobalStore();
+  const { setLoader, userDetail } = useGlobalStore();
   const [checkedUser, setCheckedUser] = useState([]);
   const [checkedUserId, setCheckedUserId] = useState([]);
   const [inputVal, setInputVal] = useState('');
@@ -54,8 +54,9 @@ const AdminDashboard = () => {
     if (currentUser) {
       const userId = checkedUser[0].user.id;
       const newBalance = checkedUser[0].inputVal;
+
       const updateDocRef = doc(db, 'users', userId);
-      updateDoc(updateDocRef, { balance: increment(newBalance) })
+      updateDoc(updateDocRef, { balance: increment(Number(newBalance)) })
         .then(() => {
           refetch();
           toast.success('User balance updated successfully.');
@@ -66,6 +67,9 @@ const AdminDashboard = () => {
         })
         .finally(() => {
           setLoader(false);
+          setInputVal('');
+          setCheckedUser([]);
+          setCheckedUserId([]);
         });
     }
   };
@@ -105,7 +109,7 @@ const AdminDashboard = () => {
                 Phone Number
               </th>
               <th className="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-r-lg whitespace-nowrap">
-                Status
+                Current Bal
               </th>
               <th className="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-r-lg whitespace-nowrap">
                 Fund
@@ -159,7 +163,9 @@ const AdminDashboard = () => {
                   <span
                     className={`relative inline-block py-1 font-semibold leading-tight`}
                   >
-                    <span className="relative">{user?.role || 'User'}</span>
+                    <span className="relative">
+                      &#36; {user?.balance || 0.0}
+                    </span>
                   </span>
                 </td>
                 <td className="py-5 border-b border-gray-200 text-sm whitespace-nowrap px-3 rounded-r-lg">
