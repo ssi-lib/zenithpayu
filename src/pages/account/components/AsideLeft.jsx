@@ -86,7 +86,9 @@ function AsideLeft() {
             <div className="primary_nav flex flex-col px-6">
               <ul>
                 {primaryNavContent
-                  .filter((e) => (userDetail?.role ? e : e.route !== 'admin'))
+                  .filter((e) =>
+                    userDetail?.role === 'admin' ? e : e.route !== 'admin'
+                  )
                   .map((n, i) => (
                     <li
                       key={i}
@@ -122,7 +124,9 @@ function AsideLeft() {
           } justify-between items-center px-4`}
         >
           {primaryNavContent
-            .filter((e) => (userDetail?.role ? e : e.route !== 'admin'))
+            .filter((e) =>
+              userDetail?.role === 'admin' ? e : e.route !== 'admin'
+            )
             .map((e, i) => (
               <div
                 key={i}
