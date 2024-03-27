@@ -53,10 +53,10 @@ const AdminDashboard = () => {
     const currentUser = auth.currentUser;
     if (currentUser) {
       const userId = checkedUser[0].user.id;
-      const newBalance = checkedUser[0].inputVal;
+      const newBalance = Number(checkedUser[0].inputVal);
 
       const updateDocRef = doc(db, 'users', userId);
-      updateDoc(updateDocRef, { balance: increment(Number(newBalance)) })
+      updateDoc(updateDocRef, { balance: increment(newBalance) })
         .then(() => {
           refetch();
           toast.success('User balance updated successfully.');
@@ -170,7 +170,7 @@ const AdminDashboard = () => {
                 </td>
                 <td className="py-5 border-b border-gray-200 text-sm whitespace-nowrap px-3 rounded-r-lg">
                   <input
-                    type="text"
+                    type="number"
                     name=""
                     id=""
                     onChange={(e) => setInputVal(e.target.value)}

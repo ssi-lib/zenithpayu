@@ -122,7 +122,13 @@ function GetStarted() {
       saveInfo.uid = user.uid;
       const userCollRef = collection(db, 'users');
       const userDocRef = doc(userCollRef, user?.uid);
-      await setDoc(userDocRef, { ...saveInfo });
+      await setDoc(userDocRef, {
+        ...saveInfo,
+        balance: 0,
+        role: 'user',
+        status: 'basic',
+        account_number: generateAccountNumber(),
+      });
 
       let profileImageUrl = null;
 
@@ -142,10 +148,6 @@ function GetStarted() {
         const uData = doc(db, 'users', user.uid);
         await updateDoc(uData, {
           photoURL: profileImageUrl,
-          balance: 0,
-          role: 'User',
-          status: 'Basic',
-          account_number: generateAccountNumber(),
         });
       }
 

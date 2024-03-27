@@ -39,7 +39,7 @@ function Home() {
             <p className="text-3xl font-bold opacity-60">Dormant</p>
           </div>
           <p className="text-neutral text-[12px] md:hidden">
-            Your account Number: {generateAccountNumber()}
+            Your account Number: {userDetail?.account_number}
           </p>
         </div>
 

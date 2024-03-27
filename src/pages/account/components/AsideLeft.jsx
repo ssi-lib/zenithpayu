@@ -60,7 +60,7 @@ function AsideLeft() {
               {userDetail?.account_type}
             </p>
             <p className="text-neutral text-[10px]">
-              Your account Number: {generateAccountNumber()}
+              Your account Number: {userDetail?.account_number}
             </p>
           </div>
         </div>
