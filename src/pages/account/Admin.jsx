@@ -170,7 +170,7 @@ const AdminDashboard = () => {
                 </td>
                 <td className="py-5 border-b border-gray-200 text-sm whitespace-nowrap px-3 rounded-r-lg">
                   <input
-                    type="number"
+                    type="text"
                     name=""
                     id=""
                     onChange={(e) => setInputVal(e.target.value)}
