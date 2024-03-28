@@ -49,22 +49,12 @@ function Login() {
         password
       );
       const user = userCredential.user;
-
-      const usersCollectionRef = collection(db, 'users');
-      const q = query(usersCollectionRef, where('uid', '==', user.uid));
-      const querySnapshot = await getDocs(q);
-
-      if (querySnapshot.empty) {
-        console.log('No such document!');
-        throw new Error('No user document found');
+      if (!user.emailVerified) {
+        setErrorMsg('Email not verified. Please verify to continue');
+        return;
+      } else {
+        navigate('/account/dashboard');
       }
-
-      querySnapshot.forEach((docSnap) => {
-        console.log('Document snapshot:', docSnap.data());
-        // If you just need to work with the first document found, you can navigate here
-      });
-
-      navigate('/account/dashboard');
     } catch (error) {
       console.error('Error signing in:', error);
       setErrorMsg(error.message.split('(')[1].split(')')[0].trim());
@@ -135,11 +125,13 @@ function Login() {
             {errorMsg && (
               <p className="my-2 text-red-500 text-[11px]">{errorMsg}</p>
             )}
-            <Link to={'/forgot-password'}>
-              <p className="text-end font-thin text-sm text-gray-500 mt-5">
-                Forgot Password?
-              </p>
-            </Link>
+            <div className="flex justify-end">
+              <Link to={'/forgot-password'}>
+                <p className="font-thin text-sm text-gray-500 mt-5">
+                  Forgot Password?
+                </p>
+              </Link>
+            </div>
             <AltButton btn_text={'Log In'} />
           </form>
         </div>

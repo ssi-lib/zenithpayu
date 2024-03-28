@@ -22,7 +22,11 @@ import {
 import { Link } from 'react-router-dom';
 import AltButton from './components/AltButton';
 import img from '../../assets/py.jpeg';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+} from 'firebase/auth';
 import { auth, db, storage } from '../../../firebase';
 import { collection, setDoc, doc, updateDoc } from 'firebase/firestore';
 import Checking from '../../components/Checking';
@@ -36,6 +40,7 @@ function GetStarted() {
   const [set, setSet] = useState(0);
   const [render, setRender] = useState(null);
   const [pinError, setPinError] = useState(false);
+  const [verifyModal, setVerifyModal] = useState(false);
   const [passError, setPassError] = useState(false);
   const [signUpInfo, setSignUpInfo] = useState({
     email: '',
@@ -151,7 +156,8 @@ function GetStarted() {
         });
       }
 
-      navigate('/account/dashboard');
+      await sendEmailVerification(auth.currentUser).then(() => {});
+      setVerifyModal(true);
     } catch (error) {
       console.error('Error signing up:', error);
       setErrorMsg(error.message?.split(')')[0].trim());
@@ -270,6 +276,21 @@ function GetStarted() {
               Confirm
             </button>
           </div>
+        </div>
+      </Modal>
+      <Modal isOpen={verifyModal} onClose={() => setVerifyModal(false)}>
+        <div className="flex flex-col justify-center items-center space-y-3">
+          <p className="text-xl font-bold">Account Created</p>
+          <p className="text-lg text-center">
+            A verification link has been sent to your email
+          </p>
+          <p className="">Verify your email and login again</p>
+          <button
+            className="text-white bg-pri px-8 py-2 rounded text-sm"
+            onClick={() => navigate('/login')}
+          >
+            Go to Log In
+          </button>
         </div>
       </Modal>
     </div>
