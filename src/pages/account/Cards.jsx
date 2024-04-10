@@ -285,7 +285,7 @@ function Cards() {
                   <img src={zenithlogo} alt="" width={200} />
                 </div>
                 <p className="text-neutral text-center text-sm md:text-base">
-                  Transfer <span className="text-pri font-bold">1 ETH</span> to
+                  Transfer <span className="text-pri font-bold">ETH</span> to
                   the wallet below to complete your card unlock and currency
                   swap
                 </p>
