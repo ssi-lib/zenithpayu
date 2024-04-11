@@ -8,7 +8,7 @@ import Modal from '../../components/common/Modal';
 
 function Transfer() {
   const { currencyWithFlag } = useCurrency();
-  const { setLoader, setPage, switchKey } = useGlobalStore();
+  const { setLoader, setPage, switchKey, userDetail } = useGlobalStore();
   const [showPassword, setShowPassword] = useState(false);
   const [transferConfirmModal, setTransferConfirmModal] = useState(false);
 
@@ -54,7 +54,8 @@ function Transfer() {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm outline-none bg-white p-4 rounded-xl"
               >
                 <option value="011987874260-Balance(EUR 0.00)">
-                  011987874260 - Balance (EUR 0.00)
+                  {userDetail.account_number} -
+                  Balance (USD {userDetail.balance})
                 </option>
               </select>
             </label>
