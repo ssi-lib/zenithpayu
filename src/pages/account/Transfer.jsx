@@ -197,7 +197,7 @@ function Transfer() {
                     />
                   </div>
                   <div className="w-1/3">
-                    <p>Your wallet balance</p>
+                    <p className="">Balance</p>
                     <input
                       type="text"
                       value={`$${userDetail.balance - cryptoVal}`}
