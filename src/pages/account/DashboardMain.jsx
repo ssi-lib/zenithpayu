@@ -21,47 +21,53 @@ import Statement from './Statement';
 import Transactions from './Transactions';
 import AdminDashboard from './Admin';
 import { IoHelp } from 'react-icons/io5';
+import Modal from '../../components/common/Modal';
+import Suspended from '../../components/Suspended';
 
 export const LinksContext = createContext();
+export const renderItem = {
+  home: { component: <Home />, header: <HomeHeader /> },
+  deposit: { component: <Deposit />, header: <Header type="deposit" /> },
+  transfer: { component: <Transfer />, header: <Header type="transfer" /> },
+  card: { component: <Cards />, header: <Header type="cards" /> },
+  swap: { component: <Swap />, header: <Header type="Exchange Currency" /> },
+  loan: { component: <Loan />, header: <Header type="loans" /> },
+  admin: { component: <AdminDashboard />, header: <Header type="Admin" /> },
+  settings: { component: <Settings />, header: <Header type="settings" /> },
+  transactions: {
+    component: <Transactions />,
+    header: <Header type="transactions" />,
+  },
+  statement: {
+    component: <Statement />,
+    header: <Header type="statement" />,
+  },
+  notifications: {
+    component: <NotificationsList />,
+    header: <Header type="Message Center" />,
+  },
+  newaccount: {
+    component: <NewAccount />,
+    header: <Header type="deposit" />,
+  },
+  update_password: {
+    component: <UpdatePassword />,
+    header: <Header type="settings" />,
+  },
+};
 
 function DashboardMain() {
-  const { page, loader, setLoader } = useGlobalStore();
-  const renderItem = {
-    home: { component: <Home />, header: <HomeHeader /> },
-    deposit: { component: <Deposit />, header: <Header type="deposit" /> },
-    transfer: { component: <Transfer />, header: <Header type="transfer" /> },
-    card: { component: <Cards />, header: <Header type="cards" /> },
-    swap: { component: <Swap />, header: <Header type="Exchange Currency" /> },
-    loan: { component: <Loan />, header: <Header type="loans" /> },
-    admin: { component: <AdminDashboard />, header: <Header type="Admin" /> },
-    settings: { component: <Settings />, header: <Header type="settings" /> },
-    transactions: {
-      component: <Transactions />,
-      header: <Header type="transactions" />,
-    },
-    statement: {
-      component: <Statement />,
-      header: <Header type="statement" />,
-    },
-    notifications: {
-      component: <NotificationsList />,
-      header: <Header type="Message Center" />,
-    },
-    newaccount: {
-      component: <NewAccount />,
-      header: <Header type="deposit" />,
-    },
-    update_password: {
-      component: <UpdatePassword />,
-      header: <Header type="settings" />,
-    },
-  };
+  const { page, loader, setLoader, userDetail } = useGlobalStore();
 
   useEffect(() => {
     setLoader(true);
     const timer = setTimeout(() => setLoader(false), 1000);
     return () => clearTimeout(timer);
   }, [page]);
+
+  if (userDetail?.account === 'suspended') {
+    return <Suspended />;
+  }
 
   return (
     <LinksContext.Provider value={linkObj}>

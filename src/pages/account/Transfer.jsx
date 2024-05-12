@@ -11,6 +11,7 @@ function Transfer() {
   const { setLoader, setPage, switchKey, userDetail } = useGlobalStore();
   const [showPassword, setShowPassword] = useState(false);
   const [transferConfirmModal, setTransferConfirmModal] = useState(false);
+  const [cryptoVal, setCryptoVal] = useState(0);
 
   const handleTransferFund = (e) => {
     e.preventDefault();
@@ -54,8 +55,8 @@ function Transfer() {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm outline-none bg-white p-4 rounded-xl"
               >
                 <option value="011987874260-Balance(EUR 0.00)">
-                  {userDetail.account_number} -
-                  Balance (USD {userDetail.balance})
+                  {userDetail.account_number} - Balance (USD{' '}
+                  {userDetail.balance})
                 </option>
               </select>
             </label>
@@ -148,6 +149,19 @@ function Transfer() {
           </div>
         ) : (
           <div className="">
+            <label className="">
+              <span className="text-sm text-neutral">From</span>
+              <select
+                name="from"
+                id="from"
+                className="block w-full p-2 rounded-md shadow mb-3 bg-white text-gray-500 text-sm"
+              >
+                <option value="011987874260-Balance(EUR 0.00)">
+                  {userDetail.account_number} - Balance (USD{' '}
+                  {userDetail.balance})
+                </option>
+              </select>
+            </label>
             <form action="" onSubmit={handleTransferFund}>
               <label htmlFor="" className="text-sm text-neutral">
                 Crypto Coin
@@ -166,8 +180,31 @@ function Transfer() {
                 <input
                   type="text"
                   required
-                  className="block w-full p-2 rounded-md shadow"
+                  className="block w-full p-2 rounded-md shadow mb-3"
                 />
+              </label>
+              <label htmlFor="" className="text-sm text-neutral">
+                <div className="flex space-x-4 items-center">
+                  <div className="w-full">
+                    <p>Amount to withdraw</p>
+                    <input
+                      type="number"
+                      onChange={({ target }) => setCryptoVal(target.value)}
+                      required
+                      max={userDetail.balance}
+                      min={1000}
+                      className="block w-full p-2 rounded-md shadow"
+                    />
+                  </div>
+                  <div className="w-1/3">
+                    <p>Your wallet balance</p>
+                    <input
+                      type="text"
+                      value={`$${userDetail.balance - cryptoVal}`}
+                      className="block w-full p-2 rounded-md shadow"
+                    />
+                  </div>
+                </div>
               </label>
               <div className="flex justify-center items-center my-8">
                 <button
