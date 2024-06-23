@@ -100,11 +100,7 @@ function GetStarted() {
   const onConfirmSignUp = async () => {
     setConfirmation(false);
     const {
-      password,
-      c_password,
-      v_account_pin,
       avatar,
-      avatarPreview,
       ...saveInfo
     } = signUpInfo;
 
@@ -127,12 +123,13 @@ function GetStarted() {
       saveInfo.uid = user.uid;
       const userCollRef = collection(db, 'users');
       const userDocRef = doc(userCollRef, user?.uid);
+      const acc_num = generateAccountNumber()
       await setDoc(userDocRef, {
         ...saveInfo,
         balance: 0,
         role: 'user',
         status: 'basic',
-        account_number: generateAccountNumber(),
+        account_number: acc_num
       });
 
       let profileImageUrl = null;
@@ -346,7 +343,6 @@ const RenderFormOne = ({ handleSubmit, useSignUpDetails }) => {
 const RenderFormTwo = ({
   handleSubmit,
   useSignUpDetails,
-  signUpInfo,
   setSignUpInfo,
 }) => {
   const [avatarPreview, setAvatarPreview] = useState(null);
@@ -629,7 +625,6 @@ const RenderFormFour = ({ handleSubmit, useSignUpDetails }) => {
 const RenderFormFive = ({
   handleSubmit,
   useSignUpDetails,
-  signUpInfo,
   pinError,
   passError,
 }) => {
