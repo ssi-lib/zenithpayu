@@ -105,7 +105,8 @@ const AdminDashboard = () => {
   const handleDoc = async (option) => {
     setLoader(true);
     try {
-      const uData = doc(db, 'users', auth.currentUser.uid);
+      const userId = pushUser.id;
+      const uData = doc(db, 'users', userId);
       await updateDoc(uData, {
         status: option,
         doc_verified: option === 'verified' ? true : false,
