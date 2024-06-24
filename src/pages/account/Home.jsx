@@ -96,7 +96,8 @@ function Home() {
     if (
       Object.values(userDetail || {}).length > 0 &&
       !userDetail.doc_verified &&
-      userDetail.status !== 'awaiting verification'
+      userDetail.status !== 'awaiting verification' &&
+      userDetail.role !== 'admin'
     ) {
       setShowDocUploadNotice(true);
     }
