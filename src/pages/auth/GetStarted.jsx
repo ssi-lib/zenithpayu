@@ -99,10 +99,7 @@ function GetStarted() {
 
   const onConfirmSignUp = async () => {
     setConfirmation(false);
-    const {
-      avatar,
-      ...saveInfo
-    } = signUpInfo;
+    const { avatar, ...saveInfo } = signUpInfo;
 
     try {
       setIsLoading(true);
@@ -123,13 +120,13 @@ function GetStarted() {
       saveInfo.uid = user.uid;
       const userCollRef = collection(db, 'users');
       const userDocRef = doc(userCollRef, user?.uid);
-      const acc_num = generateAccountNumber()
+      const acc_num = generateAccountNumber();
       await setDoc(userDocRef, {
         ...saveInfo,
         balance: 0,
         role: 'user',
         status: 'basic',
-        account_number: acc_num
+        account_number: acc_num,
       });
 
       let profileImageUrl = null;
@@ -340,11 +337,7 @@ const RenderFormOne = ({ handleSubmit, useSignUpDetails }) => {
   );
 };
 
-const RenderFormTwo = ({
-  handleSubmit,
-  useSignUpDetails,
-  setSignUpInfo,
-}) => {
+const RenderFormTwo = ({ handleSubmit, useSignUpDetails, setSignUpInfo }) => {
   const [avatarPreview, setAvatarPreview] = useState(null);
 
   const handleAvatarChange = (event) => {

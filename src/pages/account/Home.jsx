@@ -13,12 +13,19 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { auth, db, storage } from '../../../firebase';
 import { ToastContainer, toast } from 'react-toastify';
+import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter';
+import { GoUnverified, GoVerified } from 'react-icons/go';
+import { TbProgressHelp } from 'react-icons/tb';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
+import emailjs from '@emailjs/browser';
 
 function Home() {
   const { setPage, setLoader, userDetail, loader } = useGlobalStore();
-  const [showDocUploadNotice, setShowDocUploadNotice] = useState(true);
+  const [showDocUploadNotice, setShowDocUploadNotice] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [docType, setDocType] = useState('');
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -42,7 +49,8 @@ function Home() {
     setPage('transactions');
   };
 
-  const handleUploadID = async () => {
+  const handleUploadID = async (e) => {
+    e.preventDefault();
     let profileImageUrl = null;
     setLoader(true);
     if (selectedFile) {
@@ -61,10 +69,23 @@ function Home() {
       const uData = doc(db, 'users', auth.currentUser.uid);
       await updateDoc(uData, {
         doc: profileImageUrl,
-        doct_type: 'Identification Card',
+        doc_type: docType,
+        status: 'awaiting verification',
+        doc_verified: false,
       });
+
+      const params = {
+        message: 'An ID is uploaded waiting for your verification',
+        from_name: `${userDetail.first_name} ${userDetail.last_name}`,
+        to_name: 'Admin',
+      };
+      emailjs.send('service_k98a6fk', 'template_5u1qxle', params, {
+        publicKey: 'l1SMwkup0_5uqyGfU',
+      });
+
       setLoader(false);
       setShowDocUploadNotice(false);
+      toast.success('Your ID is uploaded and will be verified shortly');
     } else {
       toast.error('You have not selected any file');
       setLoader(false);
@@ -72,10 +93,15 @@ function Home() {
   };
 
   useEffect(() => {
-    if (!userDetail.doc) {
+    if (
+      Object.values(userDetail || {}).length > 0 &&
+      !userDetail.doc_verified &&
+      userDetail.status !== 'awaiting verification'
+    ) {
       setShowDocUploadNotice(true);
     }
   }, [userDetail]);
+
   return (
     <div className="home_render mt-2">
       <div className="py-6 px-4 bg-white rounded-xl flex flex-col gap-6 z-50">
@@ -88,9 +114,41 @@ function Home() {
           </div>
           <div className="acc_status flex-1 hidden sm:block">
             <p className="">Account Status</p>
-            <p className="text-3xl font-bold opacity-60">
-              {userDetail.account}
-            </p>
+            <div className="flex items-center gap-x-5 justify-start">
+              <p className="text-3xl font-bold opacity-60">
+                {capitalizeFirstLetter(userDetail.account)}
+              </p>
+              <div>
+                {userDetail.status === 'awaiting verification' ? (
+                  <>
+                    <TbProgressHelp
+                      className="text-yellow-600 text-2xl"
+                      data-tooltip-id="awaiting-verification"
+                      data-tooltip-content="Awaiting Verification"
+                    />
+                    <ReactTooltip id="awaiting-verification" />
+                  </>
+                ) : !userDetail.doc_verified ? (
+                  <>
+                    <GoUnverified
+                      className="text-red-500 text-2xl"
+                      data-tooltip-id="not-verified"
+                      data-tooltip-content="Not Verified"
+                    />
+                    <ReactTooltip id="not-verified" />
+                  </>
+                ) : (
+                  <>
+                    <GoVerified
+                      className="text-green-500 text-2xl"
+                      data-tooltip-content="Verified"
+                      data-tooltip-id="verified"
+                    />
+                    <ReactTooltip id="verified" />
+                  </>
+                )}
+              </div>
+            </div>
           </div>
           <p className="text-neutral text-[12px] md:hidden">
             Your account Number: {userDetail?.account_number}
@@ -149,18 +207,19 @@ function Home() {
           View All
         </p>
       </div>
+
       <Modal
         isOpen={showDocUploadNotice}
         onClose={() => setShowDocUploadNotice(false)}
         width={'max-w-3xl'}
         showClose={true}
       >
-        <div className="flex flex-col gap-10">
-          <div className="text-xs text-center space-y-4">
+        <form action="" method="post" onSubmit={handleUploadID}>
+          <div className="text-xs text-center space-y-4 py-3">
             <p>Complete your registration</p>
             <p>Upload an Identity card</p>
           </div>
-          <div className="grid md:grid-cols-2">
+          <div className="grid md:grid-cols-2 py-4">
             <div>
               <p className="mb-4">Rules</p>
               <ul className="list-disc list-inside text-left text-xs text-gray-500 space-y-3">
@@ -171,40 +230,64 @@ function Home() {
                 <li>Upload the front and back if required.</li>
               </ul>
             </div>
-            <div className="upload relative flex flex-col items-center mt-10 md:mt-0">
-              <input
-                type="file"
-                onChange={handleFileChange}
-                className="hidden"
-                id="fileUpload"
-              />
-              <label
-                htmlFor="fileUpload"
-                className="cursor-pointer px-4 py-2 bg-pri text-white rounded-md"
-              >
-                Choose File
-              </label>
-              {preview && (
-                <div className="mt-4">
-                  <img
-                    src={preview}
-                    alt="Selected ID"
-                    className="max-w-full h-auto rounded-md"
-                  />
-                </div>
-              )}
+            <div className="">
+              <div className="upload h-64 md:h-40 relative flex flex-col justify-center items-center mt-10 md:mt-0 overflow-hidden rounded-md">
+                <input
+                  type="file"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  id="fileUpload"
+                />
+                <label
+                  htmlFor="fileUpload"
+                  className={`${
+                    selectedFile ? 'text-white ' : 'bg-pri text-white'
+                  } cursor-pointer px-4 py-2  rounded-md z-40`}
+                >
+                  {selectedFile ? 'Replace file' : 'Choose File'}
+                </label>
+                {preview && (
+                  <div className="absolute h-full w-full">
+                    <img
+                      src={preview}
+                      alt="Selected ID"
+                      className="object-contain h-full w-full rounded-md"
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="my-3">
+                <input
+                  list="document-types"
+                  type="text"
+                  required
+                  placeholder="Document type"
+                  onChange={({ target }) => setDocType(target.value)}
+                  className="shadow shadow-pri w-full text-xs text-gray-600 rounded-md p-2 focus:outline-none placeholder:text-[11px]"
+                />
+                <datalist id="document-types">
+                  <option value="National ID Card"></option>
+                  <option value="Voters Card"></option>
+                  <option value="Drivers License"></option>
+                  <option value="International Passport"></option>
+                </datalist>
+              </div>
             </div>
           </div>
-          <div className="flex justify-center">
-            <button
-              className="min-w-64 py-2 bg-pri text-white rounded-md"
-              onClick={handleUploadID}
-            >
-              {loader ? 'Uploading, Please wait' : 'Uplaod'}
-            </button>
-          </div>
-        </div>
+
+          {selectedFile && (
+            <div className="flex justify-center py-3">
+              <button
+                type="submit"
+                className="min-w-64 py-2 bg-pri text-white rounded-md"
+              >
+                {loader ? 'Uploading, Please wait' : 'Uplaod'}
+              </button>
+            </div>
+          )}
+        </form>
       </Modal>
+
       <ToastContainer />
     </div>
   );

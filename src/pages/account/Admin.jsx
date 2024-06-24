@@ -9,6 +9,10 @@ import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter';
 import { generateLabel } from '../../../utils/generateLabel';
 import { sortedKeys } from '../../../utils/sortedKeys';
 import { FaTimes, FaUserCircle } from 'react-icons/fa';
+import { MdOutlineRemoveRedEye } from 'react-icons/md';
+import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
+import { GiCancel } from 'react-icons/gi';
+import { GoVerified } from 'react-icons/go';
 
 const AdminDashboard = () => {
   const { users, loading, refetch } = useFetchUsers(db);
@@ -16,6 +20,7 @@ const AdminDashboard = () => {
   const [pushFund, setPushFund] = useState(false);
   const [pushUser, setPushUser] = useState({});
   const [inputVal, setInputVal] = useState('');
+  const [viewDoc, setViewDoc] = useState(false);
 
   if (loading) {
     setLoader(true);
@@ -94,6 +99,24 @@ const AdminDashboard = () => {
           setInputVal('');
           setPushFund(false);
         });
+    }
+  };
+
+  const handleDoc = async (option) => {
+    setLoader(true);
+    try {
+      const uData = doc(db, 'users', auth.currentUser.uid);
+      await updateDoc(uData, {
+        status: option,
+        doc_verified: option === 'verified' ? true : false,
+      });
+
+      setPushFund(false);
+      setViewDoc(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -274,17 +297,34 @@ const AdminDashboard = () => {
             </div>
             <div className="w-full col-span-2 grid gap-4  h-full shadow rounded-md bg-gray-100">
               <div className="grid md:grid-cols-2 text-center p-3">
-                <div className="flex flex-col md:flex-row text-sm md:gap-5 items-center text-center md:text-start">
-                  <p className="text-xs text-center md:text-start">
-                    Document Type:{' '}
-                  </p>
-                  <p className="text-center md:text-start">
-                    {pushUser.doc_type ?? 'No upload yet'}
-                  </p>
+                <div className="flex flex-col text-sm md:gap-5 justify-center text-center md:text-start">
+                  <div className="flex flex-col md:flex-row">
+                    <p className="text-xs text-center md:text-start">
+                      Document Type:{' '}
+                    </p>
+                    <p className="text-center md:text-start">
+                      {pushUser.doc_type ?? 'No upload yet'}
+                    </p>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <p>Verification: </p>
+                    <p>{capitalizeFirstLetter(pushUser.status)}</p>
+                  </div>
                 </div>
+
                 <div className="w-full bg-gray-200 min-h-40 flex items-center justify-center">
                   {pushUser.doc ? (
-                    <img src={pushUser.doc} alt="" />
+                    <div className="flex justify-center items-center">
+                      <img src={pushUser.doc} alt="" />
+                      <div className="absolute flex justify-center items-center space-x-4 text-2xl bg-gray-900 px-2 py-1 rounded-md">
+                        <MdOutlineRemoveRedEye
+                          className="text-pri"
+                          onClick={() => setViewDoc(true)}
+                        />
+                        {/* <IoMdCheckmarkCircleOutline className="text-green-500" />
+                        <GiCancel className="text-red-600" /> */}
+                      </div>
+                    </div>
                   ) : (
                     <p className="text-7xl">?</p>
                   )}
@@ -345,6 +385,25 @@ const AdminDashboard = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </Modal>
+      <Modal isOpen={viewDoc} onClose={() => setViewDoc} width={'max-w-4xl'}>
+        <div className="flex justify-end items-end">
+          <img src={pushUser.doc} alt="" className="w-full object-contain" />
+          <div className="absolute flex justify-center items-center space-x-8 text-4xl bg-gray-900 px-2 py-2 rounded-md">
+            {/* <MdOutlineRemoveRedEye
+              className="text-pri"
+              onClick={() => setViewDoc(true)}
+            /> */}
+            <IoMdCheckmarkCircleOutline
+              className="text-green-500 cursor-pointer"
+              onClick={() => handleDoc('verified')}
+            />
+            <GiCancel
+              className="text-red-600 cursor-pointer"
+              onClick={() => handleDoc('not verified')}
+            />
           </div>
         </div>
       </Modal>

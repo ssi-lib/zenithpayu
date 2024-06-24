@@ -2,13 +2,12 @@ import { TfiAngleLeft } from 'react-icons/tfi';
 import { MdPersonAddAlt1 } from 'react-icons/md';
 import { IoEyeOffSharp, IoEyeSharp } from 'react-icons/io5';
 import { BsKeyFill } from 'react-icons/bs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Checking from '../../components/Checking';
 import AltButton from './components/AltButton';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../../../firebase';
-import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useGlobalStore } from '../../store/Context';
 
 function Login() {
@@ -21,6 +20,7 @@ function Login() {
   const [errorMsg, setErrorMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [loader, setLoader] = useState(false);
+  const { currentUser } = useGlobalStore();
   const navigate = useNavigate();
 
   const useLoginDetails = ({ target }) => {
@@ -65,6 +65,11 @@ function Login() {
     }
   };
 
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/account/dashboard');
+    }
+  }, [currentUser, navigate]);
   return (
     <div className="bg-[#EDEDF5] relative">
       <div className="md:w-[40%] mx-auto bg-[#F5F5FA] h-screen px-3 md:px-7">
