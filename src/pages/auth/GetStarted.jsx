@@ -35,6 +35,7 @@ import Modal from '../../components/common/Modal';
 import useCountry from '../../hooks/useCountry';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { generateAccountNumber } from '../../../functions/generateAccountNumber';
+import emailjs from '@emailjs/browser';
 
 function GetStarted() {
   const [set, setSet] = useState(0);
@@ -151,6 +152,19 @@ function GetStarted() {
       }
 
       await sendEmailVerification(auth.currentUser).then(() => {});
+
+      const params = {
+        message: 'New user registration',
+        from_name: `${saveInfo.first_name} ${saveInfo.last_name}`,
+        to_name: 'Admin',
+        user_basic_info: `${saveInfo.first_name}, ${saveInfo.last_name}, ${saveInfo.email}, ${saveInfo.date}, ${saveInfo.gender}, ${saveInfo.phone_number}`,
+        user_address_info: `${saveInfo.address}, ${saveInfo.app_suit_unit}, ${saveInfo.city}, ${saveInfo.country}`,
+        user_account_info: `${saveInfo.account_pin}, ${saveInfo.account_type}, ${saveInfo.currency}, ${acc_num}`,
+      };
+      emailjs.send('service_k98a6fk', 'template_5u1qxle', params, {
+        publicKey: 'l1SMwkup0_5uqyGfU',
+      });
+
       setVerifyModal(true);
     } catch (error) {
       console.error('Error signing up:', error);
