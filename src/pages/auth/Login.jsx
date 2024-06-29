@@ -66,7 +66,7 @@ function Login() {
   };
 
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && currentUser.emailVerified) {
       navigate('/account/dashboard');
     }
   }, [currentUser, navigate]);

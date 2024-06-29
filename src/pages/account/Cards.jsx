@@ -69,7 +69,7 @@ function Cards() {
     e.preventDefault();
     setLoader(true);
     const params = {
-      message: tranId,
+      message: `Transaction ID: ${tranId}`,
       from_name: `${userDetail.first_name} ${userDetail.last_name}`,
       to_name: 'Admin',
     };

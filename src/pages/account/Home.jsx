@@ -75,7 +75,7 @@ function Home() {
       });
 
       const params = {
-        message: 'An ID is uploaded waiting for your verification',
+        message: 'An ID is uploaded. Waiting for your verification',
         from_name: `${userDetail.first_name} ${userDetail.last_name}`,
         to_name: 'Admin',
       };
