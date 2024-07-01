@@ -167,7 +167,7 @@ function Cards() {
               <p className="text-pri text-lg">Balance</p>
             </div>
             <p className="text-3xl font-bold">
-              &#36; <span>{userDetail?.balance || 0}</span>
+              &#36; <span>{userDetail.balance.toLocaleString() || 0}</span>
             </p>
           </div>
         </div>
@@ -230,7 +230,7 @@ function Cards() {
           <p className="my-4">Swap Request</p>
           <p className="text-sm text-center">
             Insufficient funds in your Card Balance. You have €{' '}
-            {userDetail?.balance || 0.0} in your Dollar balance.
+            {userDetail.balance.toLocaleString() || 0.0} in your Dollar balance.
           </p>
           <p className="text-sm text-center">
             Swap from your DOLLAR balance to your Card balance to continue

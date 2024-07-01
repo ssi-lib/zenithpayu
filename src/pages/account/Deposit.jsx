@@ -45,7 +45,7 @@ function Deposit() {
           </div>
           <div className="flex justify-between items-center space-y-3 space-x-5">
             <p className="text-3xl font-bold">
-              &#36; {userDetail?.balance || 0.0}
+              &#36; {userDetail.balance.toLocaleString() || 0.0}
             </p>
             <p className="text-3xl font-bold">USD</p>
           </div>

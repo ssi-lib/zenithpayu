@@ -14,7 +14,7 @@ function Transactions() {
       <div className="bg-white p-4 rounded-xl shadow space-y-4">
         <p className="text-neutral text-xs">Total Income</p>
         <p className="text-green-500 text-3xl font-bold">
-          + &#8364; {userDetail?.balance || 0.0}
+          + &#8364; {userDetail.balance.toLocaleString() || 0.0}
         </p>
       </div>
       <div className="bg-white p-4 rounded-xl shadow space-y-4">

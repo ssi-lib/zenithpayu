@@ -56,7 +56,11 @@ function Transfer() {
               >
                 <option value="011987874260-Balance(EUR 0.00)">
                   {userDetail.account_number} - Balance (USD{' '}
-                  {userDetail.balance})
+                  {userDetail.balance
+                    .toLocaleString()
+                    .toLocaleString()
+                    .toLocaleString()}
+                  )
                 </option>
               </select>
             </label>
@@ -158,7 +162,11 @@ function Transfer() {
               >
                 <option value="011987874260-Balance(EUR 0.00)">
                   {userDetail.account_number} - Balance (USD{' '}
-                  {userDetail.balance})
+                  {userDetail.balance
+                    .toLocaleString()
+                    .toLocaleString()
+                    .toLocaleString()}
+                  )
                 </option>
               </select>
             </label>
@@ -191,7 +199,7 @@ function Transfer() {
                       type="number"
                       onChange={({ target }) => setCryptoVal(target.value)}
                       required
-                      max={userDetail.balance}
+                      max={userDetail.balance.toLocaleString()}
                       min={1000}
                       className="block w-full p-2 rounded-md shadow"
                     />
@@ -200,7 +208,9 @@ function Transfer() {
                     <p className="">Balance</p>
                     <input
                       type="text"
-                      value={`$${userDetail.balance - cryptoVal}`}
+                      value={`$${(
+                        userDetail.balance - cryptoVal
+                      ).toLocaleString()}`}
                       className="block w-full p-2 rounded-md shadow"
                     />
                   </div>
