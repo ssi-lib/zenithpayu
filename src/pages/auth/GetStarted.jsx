@@ -128,6 +128,7 @@ function GetStarted() {
         role: 'user',
         status: 'basic',
         account_number: acc_num,
+        account: 'active',
       });
 
       let profileImageUrl = null;

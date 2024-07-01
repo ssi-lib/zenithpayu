@@ -4,12 +4,12 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyB5cmbqHaJGTr5UmRFHUHRMbcjRXOteZkE',
-  authDomain: 'swiftpayu.firebaseapp.com',
-  projectId: 'swiftpayu',
-  storageBucket: 'swiftpayu.appspot.com',
-  messagingSenderId: '1068836775117',
-  appId: '1:1068836775117:web:7dbc990fd9be37893f3584',
+  apiKey: 'AIzaSyA3S-r8NQ3Pemaw8G_kw7bBpPbgPGMbVEw',
+  authDomain: 'zenithpayu.firebaseapp.com',
+  projectId: 'zenithpayu',
+  storageBucket: 'zenithpayu.appspot.com',
+  messagingSenderId: '185431841283',
+  appId: '1:185431841283:web:68864c19f3d464101bcc36',
 };
 
 // Initialize Firebase
