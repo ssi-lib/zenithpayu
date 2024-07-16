@@ -1,7 +1,7 @@
 import { auth, db } from '../../../firebase';
 import { useFetchUsers, toggleUserStatus } from '../../hooks/useFetchUser';
 import { useGlobalStore } from '../../store/Context';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { doc, increment, updateDoc } from 'firebase/firestore';
 import Modal from '../../components/common/Modal';
@@ -22,26 +22,30 @@ const AdminDashboard = () => {
   const [inputVal, setInputVal] = useState('');
   const [viewDoc, setViewDoc] = useState(false);
 
-  if (loading) {
-    setLoader(true);
-  }
+  useEffect(() => {
+    if (loading) {
+      setLoader(true);
+    } else {
+      setLoader(false);
+    }
+  }, [loading]);
 
-  const handleConfirm = () => {
-    setLoader(true);
-    toggleUserStatus(db, pushUser.id, pushUser.status)
-      .then(() => {
-        refetch();
-        toast.success('User status updated successfully.');
-      })
-      .catch((error) => {
-        toast.error('An error occurred while updating the user status.');
-        console.error('Error updating user status:', error);
-      })
-      .finally(() => {
-        setLoader(false);
-        setPushFund(false);
-      });
-  };
+  // const handleConfirm = () => {
+  //   setLoader(true);
+  //   toggleUserStatus(db, pushUser.id, pushUser.status)
+  //     .then(() => {
+  //       refetch();
+  //       toast.success('User status updated successfully.');
+  //     })
+  //     .catch((error) => {
+  //       toast.error('An error occurred while updating the user status.');
+  //       console.error('Error updating user status:', error);
+  //     })
+  //     .finally(() => {
+  //       setLoader(false);
+  //       setPushFund(false);
+  //     });
+  // };
 
   const handleBlockUser = () => {
     if (pushUser.role === 'admin') {
@@ -83,7 +87,7 @@ const AdminDashboard = () => {
     if (currentUser) {
       const userId = pushUser.id;
       const newBalance = Number(inputVal);
-
+      console.log('new', newBalance);
       const updateDocRef = doc(db, 'users', userId);
       updateDoc(updateDocRef, { balance: increment(newBalance) })
         .then(() => {
@@ -219,7 +223,6 @@ const AdminDashboard = () => {
         width={'max-w-7xl'}
       >
         <div
-          onSubmit={handleAssignFund}
           action=""
           className="text-center text-sm text-neutral flex flex-col items-center justify-center space-y-4"
         >
