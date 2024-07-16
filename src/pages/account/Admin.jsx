@@ -87,7 +87,6 @@ const AdminDashboard = () => {
     if (currentUser) {
       const userId = pushUser.id;
       const newBalance = Number(inputVal);
-      console.log('new', newBalance);
       const updateDocRef = doc(db, 'users', userId);
       updateDoc(updateDocRef, { balance: increment(newBalance) })
         .then(() => {
