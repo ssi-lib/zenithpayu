@@ -110,7 +110,7 @@ function Home() {
           <div className="acc_balance flex-1">
             <p className="">Dollar Balance</p>
             <p className="text-3xl font-bold">
-              &#36; <span>{userDetail.balance.toLocaleString() || 0.0}</span>
+              &#36; <span>{userDetail.balance?.toLocaleString() || 0.0}</span>
             </p>
           </div>
           <div className="acc_status flex-1 hidden sm:block">
