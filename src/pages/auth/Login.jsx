@@ -6,12 +6,19 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Checking from '../../components/Checking';
 import AltButton from './components/AltButton';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  sendEmailVerification,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import { auth, db } from '../../../firebase';
 import { useGlobalStore } from '../../store/Context';
+import Modal from '../../components/common/Modal';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [verifyModal, setVerifyModal] = useState(false);
+  const [requestLoading, setRequestLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [loginDetails, setLoginDetails] = useState({
     email: '',
     password: '',
@@ -51,6 +58,7 @@ function Login() {
       const user = userCredential.user;
       if (!user.emailVerified) {
         setErrorMsg('Email not verified. Please verify to continue');
+        setVerifyModal(true);
         return;
       } else {
         navigate('/account/dashboard');
@@ -70,8 +78,47 @@ function Login() {
       navigate('/account/dashboard');
     }
   }, [currentUser, navigate]);
+
+  const request = async () => {
+    setRequestLoading(true);
+    try {
+      await sendEmailVerification(auth.currentUser).then(() => {});
+      setSuccess(true);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setRequestLoading(false);
+    }
+  };
+
   return (
     <div className="bg-[#EDEDF5] relative">
+      <Modal isOpen={verifyModal} onClose={() => setVerifyModal(false)}>
+        <div className="flex flex-col justify-center items-center space-y-3">
+          <p className="text-xl font-bold">Email not verified</p>
+          <p className="text-base text-center">
+            Email not verified. Please verify to continue
+          </p>
+          <p className="">Verify your email and login again</p>
+          <button
+            className="text-white bg-pri px-8 py-2 rounded text-sm"
+            onClick={request}
+          >
+            {requestLoading ? 'Sending' : 'Request new verification link'}
+          </button>
+          {success && (
+            <p className="text-sm">
+              Verification link sent successfully.{' '}
+              <span
+                className="text-pri cursor-pointer"
+                onClick={() => setVerifyModal(false)}
+              >
+                Login Now
+              </span>
+            </p>
+          )}
+        </div>
+      </Modal>
       <div className="md:w-[40%] mx-auto bg-[#F5F5FA] h-screen px-3 md:px-7">
         <div className="py-7">
           <Link to={'/'}>
