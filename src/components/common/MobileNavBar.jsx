@@ -9,7 +9,7 @@ const MobileNavbar = ({ setOpenNav }) => {
   };
 
   return (
-    <div className="max-h-[300px] w-full fixed text-black bg-white p-4 z-30">
+    <div className="max-h-[450px] w-full fixed text-black bg-white p-4 z-30">
       <div className="">
         <ul className="flex flex-col gap-6 min-h-[300px]">
           {navLinks.map((link, index) => (
