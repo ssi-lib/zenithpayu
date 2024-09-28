@@ -21,8 +21,12 @@ export const navLinks = [
     url: '/about',
   },
   {
-    title: 'CONTACT US',
-    url: 'mailto:someone@example.com',
+    title: 'CONTACT US (WHATSAPP)',
+    url: 'http://wa.me/13078889799?text=Hello! I need your support',
+  },
+  {
+    title: 'CONTACT US (TELEGRAM)',
+    url: 'https://t.me/ZenithPayU',
   },
   {
     title: 'HELP',
