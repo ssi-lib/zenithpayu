@@ -348,7 +348,7 @@ const AdminDashboard = () => {
                     {pushUser.balance?.toLocaleString('en-US')}
                   </p>
                   <input
-                    type="number"
+                    type="text"
                     name=""
                     id=""
                     onChange={(e) => setInputVal(e.target.value)}
