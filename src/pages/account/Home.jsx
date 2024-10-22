@@ -94,10 +94,10 @@ function Home() {
 
   useEffect(() => {
     if (
-      Object.values(userDetail || {}).length > 0 &&
-      !userDetail.doc_verified &&
-      userDetail.status !== 'awaiting verification' &&
-      userDetail.role !== 'admin'
+      Object.values(userDetail || {})?.length > 0 &&
+      !userDetail?.doc_verified &&
+      userDetail?.status !== 'awaiting verification' &&
+      userDetail?.role !== 'admin'
     ) {
       setShowDocUploadNotice(true);
     }
@@ -110,7 +110,7 @@ function Home() {
           <div className="acc_balance flex-1">
             <p className="">Dollar Balance</p>
             <p className="text-3xl font-bold">
-              &#36; <span>{userDetail.balance?.toLocaleString() || 0.0}</span>
+              &#36; <span>{userDetail?.balance?.toLocaleString() || 0.0}</span>
             </p>
           </div>
           <div className="acc_status flex-1 hidden sm:block">

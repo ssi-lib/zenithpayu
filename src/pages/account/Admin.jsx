@@ -345,7 +345,7 @@ const AdminDashboard = () => {
                 <div className="flex flex-col space-y-4 items-center ">
                   <p>Balance: &#36;{pushUser.balance}</p>
                   <input
-                    type="text"
+                    type="number"
                     name=""
                     id=""
                     onChange={(e) => setInputVal(e.target.value)}
