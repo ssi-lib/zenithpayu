@@ -206,7 +206,7 @@ const AdminDashboard = () => {
                     className={`relative inline-block py-1 font-semibold leading-tight`}
                   >
                     <span className="relative">
-                      &#36; {user?.balance || 0.0}
+                      &#36; {user?.balance.toLocaleString('en-US') || 0.0}
                     </span>
                   </span>
                 </td>
@@ -343,7 +343,10 @@ const AdminDashboard = () => {
                   </p>
                 </div>
                 <div className="flex flex-col space-y-4 items-center ">
-                  <p>Balance: &#36;{pushUser.balance}</p>
+                  <p>
+                    Balance: &#36;
+                    {pushUser.balance?.toLocaleString('en-US')}
+                  </p>
                   <input
                     type="number"
                     name=""
