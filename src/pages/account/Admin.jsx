@@ -348,12 +348,14 @@ const AdminDashboard = () => {
                     {pushUser.balance?.toLocaleString('en-US')}
                   </p>
                   <input
-                    type="text"
-                    name=""
-                    id=""
-                    onChange={(e) => setInputVal(e.target.value)}
-                    className="border w-full text-[12px] px-2 py-2 rounded-md max-w-md"
-                  />
+  type="number"
+  name="number"
+  id=""
+  step="any"
+  onChange={(e) => setInputVal(e.target.value)}
+  className="border w-full text-[12px] px-2 py-2 rounded-md max-w-md"
+/>
+
                   <div className="flex space-x-4">
                     <button
                       type="submit"
